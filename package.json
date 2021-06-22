@@ -1,0 +1,24 @@
+{
+  "name": "prod-ready",
+  "version": "0.0.1",
+  "description": "Hola Services Parent monorepo",
+  "private": "true",
+  "license": "MIT",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  },
+  "workspaces": {
+    "packages": [
+      "services/**",
+      "common/**"
+    ]
+  }
+}
