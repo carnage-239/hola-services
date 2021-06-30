@@ -1,0 +1,15 @@
+{
+  "name": "@hola/services-common",
+  "version": "1.0.0",
+  "description": "Code that can be used across all services.",
+  "license": "MIT",
+  "scripts": {
+    "deploy": "echo 'Skipping deployment for common package.'",
+    "test": "jest test",
+    "test:verbose": "jest --verbose",
+    "test:watch": "jest --watch"
+  },
+  "devDependencies": {
+    "jest": "^26.5.0"
+  }
+}
