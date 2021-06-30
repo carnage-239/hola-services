@@ -1,5 +1,5 @@
 {
-  "name": "prod-ready",
+  "name": "services",
   "version": "0.0.1",
   "description": "Hola Services Parent monorepo",
   "private": "true",
@@ -8,12 +8,65 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "deploy": "yarn workspaces run deploy",
+    "deploy:dev": "yarn workspaces run deploy --stage dev",
+    "deploy:prod": "yarn workspaces run deploy --stage prod",
+    "fix": "yarn fix:prettier && yarn fix:eslint",
+    "fix:eslint": "eslint --fix \"**/*\"",
+    "fix:prettier": "prettier --write \"**/*\"",
+    "lint": "yarn lint:prettier && yarn lint:eslint",
+    "lint:eslint": "eslint \"**/*\"",
+    "lint:prettier": "prettier --check \"**/*.*\"",
+    "lint:ts": "tsc -p . -noEmit",
+    "test": "yarn workspaces run test"
   },
-  "keywords": [],
-  "author": "",
+  "dependencies": {
+    "serverless-domain-manager": "^4.2.0"
+  },
   "devDependencies": {
-    "lerna": "^4.0.0"
+    "@commitlint/cli": "^9.1.2",
+    "@commitlint/config-conventional": "^9.1.2",
+    "@types/aws-lambda": "^8.10.61",
+    "@types/jest": "^26.0.10",
+    "@types/node": "^15.12.4",
+    "@types/serverless": "^1.72.5",
+    "@typescript-eslint/eslint-plugin": "^3.10.1",
+    "@typescript-eslint/parser": "^3.10.1",
+    "eslint": "^7.7.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "husky": "^4.2.5",
+    "jest": "^26.4.2",
+    "lerna": "^4.0.0",
+    "lint-staged": "^10.2.13",
+    "prettier": "^2.3.1",
+    "prettier-plugin-package": "^1.0.0",
+    "serverless": "^1.82.0",
+    "serverless-bundle": "3.0.0",
+    "serverless-dotenv-plugin": "^3.0.0",
+    "serverless-offline": "6.6.0",
+    "ts-jest": "^26.3.0",
+    "typescript": "^4.3.4",
+    "typescript-eslint": "^0.0.1-alpha.0"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-push": "yarn workspaces run test",
+      "precommit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "*.{md,json}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "workspaces": {
     "packages": [
