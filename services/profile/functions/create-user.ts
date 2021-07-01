@@ -1,4 +1,3 @@
-import path from 'path';
 import { IResponse } from '../../../common/interfaces/IResponse';
 import { response } from '../../../common/utils/http-response';
 
