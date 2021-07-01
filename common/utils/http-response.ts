@@ -1,10 +1,10 @@
-import { IResponse } from "../interfaces/IResponse";
+import { IResponse } from '../interfaces/IResponse';
 
 const responseHeaders = {
-  "Content-Type": "application/json",
-  "Access-Control-Allow-Origin": "*",
+  'Content-Type': 'application/json',
+  'Access-Control-Allow-Origin': '*',
   // Required for cookies, authorization headers with HTTPS
-  "Access-Control-Allow-Credentials": true,
+  'Access-Control-Allow-Credentials': true
 };
 
 export const response = (
@@ -14,13 +14,13 @@ export const response = (
   return {
     statusCode: statusCode,
     headers: responseHeaders,
-    body: JSON.stringify(data),
+    body: JSON.stringify(data)
   };
 };
 
 export const error = (
   statusCode: number,
-  errorCode: number | "_",
+  errorCode: number | '_',
   errorMessage: string
 ): IResponse => {
   const data = {
@@ -29,14 +29,14 @@ export const error = (
       message: errorMessage,
       status: statusCode,
       more_info:
-        "https://github.com/IndyWise/services/blob/development/docs/errors/errors.md",
-    },
+        'https://github.com/IndyWise/services/blob/development/docs/errors/errors.md'
+    }
   };
 
   return {
     statusCode: statusCode,
     headers: responseHeaders,
-    body: JSON.stringify(data),
+    body: JSON.stringify(data)
   };
 };
 
@@ -53,13 +53,13 @@ export const error = (
  */
 export const tokenExpired = (): IResponse => {
   const data = {
-    message: "Unauthorized",
+    message: 'Unauthorized'
   };
 
   return {
     statusCode: 401,
     headers: responseHeaders,
-    body: JSON.stringify(data),
+    body: JSON.stringify(data)
   };
 };
 
@@ -70,12 +70,12 @@ export const tokenExpired = (): IResponse => {
  */
 export const tokenInvalid = (): IResponse => {
   const data = {
-    message: "Invalid token provided in the authorization header",
+    message: 'Invalid token provided in the authorization header'
   };
 
   return {
     statusCode: 403,
     headers: responseHeaders,
-    body: JSON.stringify(data),
+    body: JSON.stringify(data)
   };
 };

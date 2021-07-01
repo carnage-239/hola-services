@@ -1,12 +1,9 @@
 {
   "name": "services",
   "version": "0.0.1",
-  "description": "Hola Services Parent monorepo",
   "private": "true",
+  "description": "Hola Services Parent monorepo",
   "license": "MIT",
-  "directories": {
-    "doc": "docs"
-  },
   "scripts": {
     "deploy": "yarn workspaces run deploy",
     "deploy:dev": "yarn workspaces run deploy --stage dev",
@@ -49,6 +46,9 @@
     "ts-jest": "^26.3.0",
     "typescript": "^4.3.4",
     "typescript-eslint": "^0.0.1-alpha.0"
+  },
+  "directories": {
+    "doc": "docs"
   },
   "husky": {
     "hooks": {
