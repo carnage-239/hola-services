@@ -14,9 +14,7 @@ export const createNewUserAndStoreToDb = async (
   body: ICreateUserProfileBody
 ): Promise<IUserItem | false> => {
   const ID = 'user-' + uuidv4();
-  const { firstName, lastName, email, mobileNumber, username, countryCode } =
-    body;
-  const usernameLowerCased = username.trim().toLowerCase();
+  const { name, email, mobileNumber, countryCode } = body;
   const password = await hashPassword(body.password);
 
   const avatar = {
@@ -30,10 +28,8 @@ export const createNewUserAndStoreToDb = async (
     ID,
     email,
     avatar,
-    username: usernameLowerCased,
     password,
-    firstName,
-    lastName,
+    name,
     countryCode,
     mobileNumber: `${countryCode}${mobileNumber}`,
     emailVerified: false,

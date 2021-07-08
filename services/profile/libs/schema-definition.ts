@@ -7,17 +7,16 @@ import {
 } from '../../../common/utils/regex';
 
 export const createUser = Joi.object({
+  name: Joi.string().required(),
   email: Joi.string().email().required(),
-  username: Joi.string().regex(usernameRegEx).required(),
-  password: Joi.string().regex(passwordRegEx).required(),
-  countryCode: Joi.string().required(),
   mobileNumber: Joi.string().regex(mobileRegEx).required(),
-  firstName: Joi.string().required(),
-  lastName: Joi.string().required()
+  countryCode: Joi.string().required(),
+  password: Joi.string().regex(passwordRegEx).required()
 });
 
 export const login = Joi.object({
-  username: Joi.string().required(),
+  mobileNumber: Joi.string(),
+  email: Joi.string(),
   password: Joi.string().required()
 });
 
