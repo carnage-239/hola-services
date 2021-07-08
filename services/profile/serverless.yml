@@ -29,7 +29,7 @@ custom:
     basePath: ${self:service}
     createRoute53Record: true
   tableName:
-    table: ${self:custom.stage}-${self:service}-table
+    users: ${self:custom.stage}-${self:service}-users
   dynamodb:
     stages:
       - dev
@@ -65,7 +65,7 @@ provider:
         # - 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName.accounts}/index/email-index'
 
   environment:
-    TABLE_NAME_USERS: ${self:custom.tableName.table}
+    TABLE_NAME_USERS: ${self:custom.tableName.users}
 
 functions:
   createUser:
@@ -74,6 +74,14 @@ functions:
       - http:
           path: /user
           method: post
+
+  login:
+    handler: handler.login
+    events:
+      - http:
+          path: users/login
+          method: post
+          cors: true
 
 resources:
   - ${file(resources/dynamodb-table.yml)}

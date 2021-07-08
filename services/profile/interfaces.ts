@@ -42,3 +42,9 @@ export interface IUserItem {
   password_reset_token?: string;
   googleOAuthID?: string;
 }
+
+export interface ILoginBody {
+  mobileNumber?: string;
+  email?: string;
+  password: string;
+}

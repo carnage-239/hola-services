@@ -1,8 +1,12 @@
 import { IResponse } from '../interfaces/IResponse';
 
 const responseHeaders = {
+  // We are sending JSON data in response
   'Content-Type': 'application/json',
+
+  // Required for CORS support to work
   'Access-Control-Allow-Origin': '*',
+
   // Required for cookies, authorization headers with HTTPS
   'Access-Control-Allow-Credentials': true
 };

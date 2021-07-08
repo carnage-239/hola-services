@@ -18,7 +18,7 @@ export const login = Joi.object({
   mobileNumber: Joi.string(),
   email: Joi.string(),
   password: Joi.string().required()
-});
+}).or('mobileNumber', 'email');
 
 export const refreshTokensBodySchema = Joi.object({
   refresh_token: Joi.string().required()
