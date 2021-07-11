@@ -23,5 +23,8 @@
 }
 ```
 
+3. Invocation: 
 
+  POST - https://8vdrjb6gkc.execute-api.ap-south-1.amazonaws.com/dev/user
+  POST - https://8vdrjb6gkc.execute-api.ap-south-1.amazonaws.com/dev/users/login
 

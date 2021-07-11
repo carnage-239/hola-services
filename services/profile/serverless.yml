@@ -10,24 +10,24 @@ plugins:
   - serverless-dotenv-plugin
   - serverless-offline
   - serverless-dynamodb-local
-  - serverless-domain-manager
+  # - serverless-domain-manager
 
 custom:
   # Our stage is based on what is passed in when running serverless
   # commands. Or fallsback to what we have set in the provider section.
   stage: ${opt:stage, self:provider.stage}
-  domains:
-    prod: api.hola.com
-    staging: staging-api.hola.com
-    dev: dev-api.hola.com
-  customDomain:
-    domainName: ${self:custom.domains.${self:custom.stage}}
-    certificateName: '*.hola.com'
-    stage: ${self:custom.stage}
+  # domains:
+  #   prod: api.hola.com
+  #   staging: staging-api.hola.com
+  #   dev: dev-api.hola.com
+  # customDomain:
+  #   domainName: ${self:custom.domains.${self:custom.stage}}
+  #   certificateName: '*.hola.com'
+    # stage: ${self:custom.stage}
     # Set the basePath to whatever you would like it to, by default it will be
     # same as the `service` name.
-    basePath: ${self:service}
-    createRoute53Record: true
+    # basePath: ${self:service}
+    # createRoute53Record: true
   tableName:
     users: ${self:custom.stage}-${self:service}-users
   dynamodb:
@@ -59,10 +59,11 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
       Resource:
-        - 'Fn::GetAtt': [ProfileTable, Arn]
+        # - 'Fn::GetAtt': [ProfileTable, Arn]
         # Below is the other way to describe DynamoDB table
-        # - 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName.table}'
-        # - 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName.accounts}/index/email-index'
+        - 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName.users}'
+        - 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName.users}/index/email-index'
+        - 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName.users}/index/mobile-number-index'
 
   environment:
     TABLE_NAME_USERS: ${self:custom.tableName.users}
@@ -85,3 +86,4 @@ functions:
 
 resources:
   - ${file(resources/dynamodb-table.yml)}
+  - ${file(resources/gateway.yml)}

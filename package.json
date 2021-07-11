@@ -18,8 +18,7 @@
     "test": "yarn workspaces run test"
   },
   "dependencies": {
-    "jsonwebtoken": "^8.5.1",
-    "serverless-domain-manager": "^4.2.0"
+    "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^9.1.2",
