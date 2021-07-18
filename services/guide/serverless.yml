@@ -1,0 +1,89 @@
+service: service-name
+
+# Create an optimized package for our functions. Currently set as `false`
+# because setting it as `true` causes memory leak issue on type checking.
+package:
+  individually: false
+
+plugins:
+  - serverless-bundle
+  - serverless-dotenv-plugin
+  - serverless-offline
+  - serverless-dynamodb-local
+  - serverless-domain-manager
+
+custom:
+  # Our stage is based on what is passed in when running serverless
+  # commands. Or fallsback to what we have set in the provider section.
+  stage: ${opt:stage, self:provider.stage}
+  domains:
+    prod: api.indywise.com
+    staging: staging-api.indywise.com
+    dev: dev-api.indywise.com
+  customDomain:
+    domainName: ${self:custom.domains.${self:custom.stage}}
+    certificateName: '*.indywise.com'
+    stage: ${self:custom.stage}
+    # Set the basePath to whatever you would like it to, by default it will be
+    # same as the `service` name.
+    basePath: ${self:service}
+    createRoute53Record: true
+  tableName:
+    # Change the table name to your requirements.
+    table: ${self:custom.stage}-${self:service}-table
+  dynamodb:
+    stages:
+      - dev
+    start:
+      port: 8888
+      inMemory: true
+      migrate: true
+    migration:
+      dir: offline
+  serverless-offline:
+    # Change this to the next port value. If services already use 3000, 4000,
+    # then make this value 5000.
+    httpPort: x000
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: ap-south-1
+
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource:
+        - 'Fn::GetAtt': [MyTable, Arn]
+        # Below is the other way to describe DynamoDB table
+        - 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName.table}'
+        - 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName.accounts}/index/email-index'
+
+  # To load environment variables externally
+  # rename env.example to .env and uncomment
+  # the following line. Also, make sure to not
+  # commit your .env.
+  environment:
+    # Change the table name to your requirements.
+    TABLE_NAME: ${self:custom.tableName.table}
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: hello
+          method: get
+
+# Create our resources with separate CloudFormation templates
+resources:
+  # DynamoDB
+  - ${file(resources/dynamodb-table.yml)}
