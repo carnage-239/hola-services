@@ -84,6 +84,15 @@ functions:
           method: post
           cors: true
 
+  refreshTokens:
+    handler: handler.refreshTokens
+    events:
+      - http:
+          path: user/refresh-tokens
+          method: post
+          cors: true
+
+
 resources:
   - ${file(resources/dynamodb-table.yml)}
   - ${file(resources/gateway.yml)}

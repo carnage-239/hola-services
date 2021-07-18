@@ -11,32 +11,32 @@ import {
 
 const userAccessTokenOpts = {
   expiresIn: '3h',
-  issuer: 'IndyWise'
+  issuer: 'Hola'
 };
 
 const adminAccessTokenOpts = {
   expiresIn: '3h',
-  issuer: 'IndyWise'
+  issuer: 'Hola'
 };
 
 const businessAccountAccessTokenOpts = {
   expiresIn: '3h',
-  issuer: 'IndyWise'
+  issuer: 'Hola'
 };
 
 const userRefreshTokenOpts = {
   expiresIn: '30d',
-  issuer: 'IndyWise'
+  issuer: 'Hola'
 };
 
 const adminRefreshTokenOpts = {
   expiresIn: '8h',
-  issuer: 'IndyWise'
+  issuer: 'Hola'
 };
 
 const businessAccountRefreshTokenOpts = {
   expiresIn: '30d',
-  issuer: 'IndyWise'
+  issuer: 'Hola'
 };
 
 const encode = async (

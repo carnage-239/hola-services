@@ -12,8 +12,8 @@ export interface IAdmin {
   password: string;
   name: string;
   roles: string[];
-  is_active: boolean;
-  jwt_version: number;
+  isActive: boolean;
+  jwtVersion: number;
   created_at: number;
   updated_at: number;
   last_login: number;
@@ -25,8 +25,8 @@ export interface IBusinessAccount {
   email: string;
   username: string;
   password: string;
-  is_active: boolean;
-  jwt_version: number;
+  isActive: boolean;
+  jwtVersion: number;
   created_at: number;
   updated_at: number;
   last_login: number;
@@ -38,16 +38,16 @@ export interface User {
   user_type: string[];
   email: string;
   mobile: string;
-  is_active: boolean;
-  jwt_version: number;
+  isActive: boolean;
+  jwtVersion: number;
 }
 
 export interface Admin {
   username: string;
   name: string;
   roles: string[];
-  is_active: boolean;
-  jwt_version: number;
+  isActive: boolean;
+  jwtVersion: number;
 }
 
 export interface BusinessAccount {
@@ -55,8 +55,8 @@ export interface BusinessAccount {
   email: string;
   username: string;
   password: string;
-  is_active: boolean;
-  jwt_version: number;
+  isActive: boolean;
+  jwtVersion: number;
 }
 
 interface UserTokenPayload {
@@ -102,8 +102,8 @@ const generateAdminAccessToken = async (admin: IAdmin): Promise<string> => {
       username: admin.username,
       name: admin.name,
       roles: admin.roles,
-      is_active: admin.is_active,
-      jwt_version: admin.jwt_version
+      isActive: admin.isActive,
+      jwtVersion: admin.jwtVersion
     }
   });
 };
@@ -122,8 +122,8 @@ const generateBusinessAccountAccessToken = async (
       organization_name: account.organization_name,
       username: account.username,
       email: account.email,
-      is_active: account.is_active,
-      jwt_version: account.jwt_version
+      isActive: account.isActive,
+      jwtVersion: account.jwtVersion
     }
   });
 };
@@ -156,8 +156,8 @@ const generateAdminRefreshToken = async (admin: IAdmin): Promise<string> => {
       username: admin.username,
       name: admin.name,
       roles: admin.roles,
-      is_active: admin.is_active,
-      jwt_version: admin.jwt_version
+      isActive: admin.isActive,
+      jwtVersion: admin.jwtVersion
     }
   });
 };
@@ -176,8 +176,8 @@ const generateBusinessAccountRefreshToken = async (
       organization_name: account.organization_name,
       username: account.username,
       email: account.email,
-      is_active: account.is_active,
-      jwt_version: account.jwt_version
+      isActive: account.isActive,
+      jwtVersion: account.jwtVersion
     }
   });
 };

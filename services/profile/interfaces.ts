@@ -48,3 +48,7 @@ export interface ILoginBody {
   email?: string;
   password: string;
 }
+
+export interface IRefreshTokenBody {
+  refresh_token: string;
+}

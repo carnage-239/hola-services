@@ -24,3 +24,12 @@ export const loginSchemaValidator = async (
     return error(400, 30426, err.details[0].message);
   }
 };
+
+export const refreshTokenSchemaValidator = async (data: unknown) => {
+  try {
+    await schema.refreshTokensBodySchema.validateAsync(data);
+    return true;
+  } catch (err) {
+    return error(400, 20401, err.details[0].message);
+  }
+};
