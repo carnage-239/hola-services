@@ -1,4 +1,4 @@
-service: service-name
+service: guide
 
 # Create an optimized package for our functions. Currently set as `false`
 # because setting it as `true` causes memory leak issue on type checking.
@@ -30,7 +30,7 @@ custom:
     createRoute53Record: true
   tableName:
     # Change the table name to your requirements.
-    table: ${self:custom.stage}-${self:service}-table
+    guides: ${self:custom.stage}-${self:service}-guides
   dynamodb:
     stages:
       - dev
@@ -62,10 +62,10 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
       Resource:
-        - 'Fn::GetAtt': [MyTable, Arn]
+        - 'Fn::GetAtt': [Guides, Arn]
         # Below is the other way to describe DynamoDB table
-        - 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName.table}'
-        - 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName.accounts}/index/email-index'
+        - 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName.guides}'
+        - 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName.guides}/index/email-index'
 
   # To load environment variables externally
   # rename env.example to .env and uncomment
@@ -73,15 +73,17 @@ provider:
   # commit your .env.
   environment:
     # Change the table name to your requirements.
-    TABLE_NAME: ${self:custom.tableName.table}
+    TABLE_NAME_GUIDES: ${self:custom.tableName.guides}
 
 functions:
-  hello:
-    handler: handler.hello
+  guideVerification:
+    handler: handler.guideVerification
     events:
       - http:
-          path: hello
-          method: get
+          path: /guide/verification
+          method: post
+          cors: true
+
 
 # Create our resources with separate CloudFormation templates
 resources:

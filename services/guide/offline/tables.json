@@ -1,6 +1,6 @@
 {
   "Table": {
-    "TableName": "table",
+    "TableName": "guides",
     "KeySchema": [
       {
         "AttributeName": "ID",

@@ -1,21 +1,26 @@
-# Sample file for demonstrating the use of "/resources"
 Resources:
-  MyTable:
+  GuidesTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: ${self:custom.tableName.table}
+      TableName: ${self:custom.tableName.guides}
       AttributeDefinitions:
         - AttributeName: ID
           AttributeType: S
+        - AttributeName: email
+          AttributeType: S
+      KeySchema:
+        - AttributeName: ID
+          KeyType: HASH
       ProvisionedThroughput:
             ReadCapacityUnits: 5
             WriteCapacityUnits: 5
-
-Outputs:
-  MyTableArn:
-    Value:
-      Fn::GetAtt:
-        - MyTable
-        - Arn
-    Export:
-      Name: ${self:custom.stage}-ExtMyTableArn
+      GlobalSecondaryIndexes:
+        - IndexName: email-index
+          KeySchema:
+            - AttributeName: email 
+              KeyType: HASH
+          Projection:
+            ProjectionType: 'ALL'
+          ProvisionedThroughput:
+            ReadCapacityUnits: 5
+            WriteCapacityUnits: 5
