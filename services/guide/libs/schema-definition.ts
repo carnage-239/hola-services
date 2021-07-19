@@ -18,3 +18,10 @@ export const guideVerficationSchema = Joi.object({
   backAadharImageLink: Joi.string().required(),
   tourGuideLicenseImageLink: Joi.string().required()
 });
+
+export const photoPresignedUrl = Joi.object({
+  contentType: Joi.string()
+    .required()
+    .valid('image/png', 'image/jpg', 'image/jpeg'),
+  format: Joi.string().required().valid('jpg', 'png', 'jpeg')
+});

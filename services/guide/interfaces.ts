@@ -12,7 +12,6 @@ export interface IGuideVerification {
   backAadharImageLink: string;
   tourGuideLicenseImageLink: string;
 }
-
 export interface IGuideVerificationDataInDB {
   ID: string;
   email: string;
@@ -23,4 +22,16 @@ export interface IGuideVerificationDataInDB {
   frontAadharImageLink: string;
   backAadharImageLink: string;
   tourGuideLicenseImageLink: string;
+}
+
+export type imageContentType = 'image/png' | 'image/jpg' | 'image/jpeg';
+export interface IUploadPhoto {
+  contentType: imageContentType;
+  format: 'jpg' | 'png' | 'jpeg';
+}
+
+export interface ISignedPhotoResponse {
+  type: string;
+  signed_url: string;
+  photo_url: string;
 }

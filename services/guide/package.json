@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "@shelf/jest-dynamodb": "^1.7.0",
-    "serverless-dynamodb-local": "^0.2.39"
+    "serverless-dynamodb-local": "^0.2.39",
+    "serverless-s3-local": "^0.6.18"
   }
 }
