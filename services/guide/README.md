@@ -15,4 +15,3 @@ This template uses the [serverless-bundle](https://github.com/AnomalyInnovations
 - **Lint your code with ESLint**
 - **Add environment variables for your stages**
 - **No need to manage Webpack or Babel configs**
-

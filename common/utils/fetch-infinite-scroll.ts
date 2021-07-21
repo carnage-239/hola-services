@@ -51,7 +51,7 @@ export const fetchInfiniteScroll = async <T>(
 
   try {
     const res = await db.scan(params);
-    const Items = (res.Items as unknown) as T[];
+    const Items = res.Items as unknown as T[];
 
     if (res.LastEvaluatedKey) {
       // For example, LastEvaluatedKey = { ID: "212cas-2ksdc" }

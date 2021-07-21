@@ -1,10 +1,10 @@
 module.exports = {
-  preset: "@shelf/jest-dynamodb",
-  transform: { "^.+\\.tsx?$": "ts-jest" },
+  preset: '@shelf/jest-dynamodb',
+  transform: { '^.+\\.tsx?$': 'ts-jest' },
   globals: {
-    "ts-jest": {
-      diagnostics: false,
-    },
+    'ts-jest': {
+      diagnostics: false
+    }
   },
-  testEnvironment: "node",
+  testEnvironment: 'node'
 };

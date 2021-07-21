@@ -12,16 +12,16 @@ plugins:
 
 custom:
   stage: ${opt:stage, self:provider.stage}
-  domains:
-    prod: api.indywise.com
-    staging: staging-api.indywise.com
-    dev: dev-api.indywise.com
-  customDomain:
-    domainName: ${self:custom.domains.${self:custom.stage}}
-    certificateName: '*.indywise.com'
-    stage: ${self:custom.stage}
-    basePath: ${self:service}
-    createRoute53Record: true
+  # domains:
+  #   prod: api.indywise.com
+  #   staging: staging-api.indywise.com
+  #   dev: dev-api.indywise.com
+  # customDomain:
+  #   domainName: ${self:custom.domains.${self:custom.stage}}
+  #   certificateName: '*.indywise.com'
+  #   stage: ${self:custom.stage}
+  #   basePath: ${self:service}
+  #   createRoute53Record: true
   tableName:
     guides: ${self:custom.stage}-${self:service}-guides
   bucketName:
@@ -59,15 +59,20 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
       Resource:
-        - 'Fn::GetAtt': [Guides, Arn]
+        # - 'Fn::GetAtt': [Guides, Arn]
         - 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName.guides}'
         - 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName.guides}/index/email-index'
+    
+    - Effect: "Allow"
+      Action:
+        - s3:*
+      Resource: "*"
         
   environment:
     TABLE_NAME_GUIDES: ${self:custom.tableName.guides}
     BUCKET_NAME_GUIDES: ${self:custom.bucketName.guides}
-    STAGE: ${self:custom.stage}
-    REGION: ${self:provider.region}
+    # STAGE: ${self:custom.stage}
+    # REGION: ${self:provider.region}
 
 functions:
 

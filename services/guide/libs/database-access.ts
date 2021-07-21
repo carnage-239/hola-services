@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from 'uuid';
 import dbInstance from '../../../common/libs/database';
 import { TABLE_NAME_GUIDES } from '../config';
 import {
-  IGuide,
   IGuideBasicDetails,
   IGuideRaw,
   IGuideVerification,
