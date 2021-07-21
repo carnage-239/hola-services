@@ -70,11 +70,28 @@ provider:
     REGION: ${self:provider.region}
 
 functions:
+
+  guideCreate:
+    handler: handler.guideCreate
+    events:
+      - http:
+          path: /guide/{ID}
+          method: post
+          cors: true
+  
+  fetchGuide:
+    handler: handler.fetchGuide
+    events:
+      - http:
+          path: /guide/{ID}
+          method: get
+          cors: true
+
   guideVerification:
     handler: handler.guideVerification
     events:
       - http:
-          path: /guide/verification
+          path: /guide/verification/{ID}
           method: post
           cors: true
 

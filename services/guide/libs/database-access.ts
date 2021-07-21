@@ -1,29 +1,98 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import dbInstance from '../../../common/libs/database';
 import { TABLE_NAME_GUIDES } from '../config';
-import { IGuideVerification, IGuideVerificationDataInDB } from '../interfaces';
+import {
+  IGuide,
+  IGuideBasicDetails,
+  IGuideRaw,
+  IGuideVerification,
+  IGuideVerificationDataInDB
+} from '../interfaces';
 
-export const putGuideVerificationDetails = async (
-  body: IGuideVerification
-): Promise<IGuideVerificationDataInDB | false> => {
-  const insertData: IGuideVerificationDataInDB = {
-    ID: body.ID,
-    email: body.email,
-    mobileNumber: body.mobileNumber,
-    panNumber: body.panNumber,
-    panCardImageLink: body.panCardImageLink,
-    aadharNumber: body.aadharNumber,
-    backAadharImageLink: body.backAadharImageLink,
-    frontAadharImageLink: body.frontAadharImageLink,
-    tourGuideLicenseImageLink: body.tourGuideLicenseImageLink
+export const createGuide = async (
+  ID: string,
+  body: IGuideBasicDetails
+): Promise<IGuideRaw | false> => {
+  const guideID = 'guide-' + uuidv4();
+  const insertData: IGuideBasicDetails = {
+    ...body
+  };
+  const returnData: IGuideRaw = {
+    ID,
+    guideID,
+    basicDetails: body
   };
 
   const params = {
     TableName: TABLE_NAME_GUIDES,
-    Item: insertData
+    Key: {
+      ID
+    },
+    UpdateExpression: 'SET #basicdata = :b, #guideID = :g',
+    ExpressionAttributeNames: {
+      '#basicdata': 'basicDetails',
+      '#guideID': 'guideID'
+    },
+    ExpressionAttributeValues: {
+      ':b': insertData,
+      ':g': guideID
+    }
   };
 
   try {
-    await dbInstance.put(params);
+    await dbInstance.update(params);
+    return returnData;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const fetchGuide = async (ID: string): Promise<IGuideRaw | false> => {
+  const params = {
+    TableName: TABLE_NAME_GUIDES,
+    Key: {
+      ID
+    }
+  };
+
+  try {
+    const res = await dbInstance.get(params);
+    const guide = res.Item;
+
+    if (!guide) {
+      return null;
+    }
+    return guide as IGuideRaw;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const putGuideVerificationDetails = async (
+  ID: string,
+  body: IGuideVerification
+): Promise<IGuideVerificationDataInDB | false> => {
+  const insertData: IGuideVerificationDataInDB = {
+    ...body
+  };
+
+  const params = {
+    TableName: TABLE_NAME_GUIDES,
+    Key: {
+      ID
+    },
+    UpdateExpression: 'SET #verification = :v',
+    ExpressionAttributeNames: {
+      '#verification': 'verificationData'
+    },
+    ExpressionAttributeValues: {
+      ':v': insertData
+    }
+  };
+
+  try {
+    await dbInstance.update(params);
     return insertData;
   } catch (error) {
     return false;

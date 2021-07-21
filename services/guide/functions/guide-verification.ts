@@ -5,14 +5,15 @@ import { putGuideVerificationDetails } from '../libs/database-access';
 import { guideVerificationSchemaValidator as validateRequestBodySchema } from '../libs/schema-validator';
 
 const addGuideVerificationDetails = async (
-  body: IGuideVerification
+  body: IGuideVerification,
+  ID: string
 ): Promise<IResponse> => {
   const requestBodyIsValid = await validateRequestBodySchema(body);
   if (requestBodyIsValid !== true) {
     return requestBodyIsValid;
   }
 
-  const addedVerificationData = await putGuideVerificationDetails(body);
+  const addedVerificationData = await putGuideVerificationDetails(ID, body);
   if (addedVerificationData === false) {
     return error(
       500,

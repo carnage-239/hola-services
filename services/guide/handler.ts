@@ -3,6 +3,9 @@ import 'source-map-support/register';
 import { APIGatewayProxyHandler } from 'aws-lambda';
 
 import { IResponse } from '../../common/interfaces/IResponse';
+import guideCreateHandler from './functions/create-guide';
+import fetchGuideHandler from './functions/fetch-guide';
+import guideVerificationHandler from './functions/guide-verification';
 import photosPresignUploadHandler from './functions/photo-presign-upload';
 
 export const licensePresignUpload: APIGatewayProxyHandler = async (
@@ -46,5 +49,31 @@ export const aadharBackPresignUpload: APIGatewayProxyHandler = async (
     ID,
     'aadhar-back'
   );
+  return handlerResponse;
+};
+
+export const guideCreate: APIGatewayProxyHandler = async (
+  event
+): Promise<IResponse> => {
+  const body = JSON.parse(event.body);
+  const ID = event.pathParameters.ID;
+  const handlerResponse = await guideCreateHandler(body, ID);
+  return handlerResponse;
+};
+
+export const guideVerification: APIGatewayProxyHandler = async (
+  event
+): Promise<IResponse> => {
+  const body = JSON.parse(event.body);
+  const ID = event.pathParameters.ID;
+  const handlerResponse = await guideVerificationHandler(body, ID);
+  return handlerResponse;
+};
+
+export const fetchGuide: APIGatewayProxyHandler = async (
+  event
+): Promise<IResponse> => {
+  const ID = event.pathParameters.ID;
+  const handlerResponse = await fetchGuideHandler(ID);
   return handlerResponse;
 };
