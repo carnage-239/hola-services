@@ -1,4 +1,5 @@
-service: admin
+service: attractions
+
 package:
   individually: false
 
@@ -19,14 +20,10 @@ custom:
     domainName: ${self:custom.domains.${self:custom.stage}}
     certificateName: '*.indywise.com'
     stage: ${self:custom.stage}
-    # Set the basePath to whatever you would like it to, by default it will be
-    # same as the `service` name.
     basePath: ${self:service}
     createRoute53Record: true
   tableName:
-    admin: ${self:custom.stage}-${self:service}-admin
     attractions: ${self:custom.stage}-attractions-attractions
-
   dynamodb:
     stages:
       - dev
@@ -37,7 +34,7 @@ custom:
     migration:
       dir: offline
   serverless-offline:
-    httpPort: 7000
+    httpPort: 8000
 
 provider:
   name: aws
@@ -56,10 +53,11 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
       Resource:
+        - 'Fn::GetAtt': [MyTable, Arn]
         - 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName.table}'
         - 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName.accounts}/index/email-index'
+
   environment:
-    TABLE_NAME_ADMIN: ${self:custom.tableName.admin}
     TABLE_NAME_ATTRACTIONS: ${self:custom.tableName.attractions}
 
 functions:

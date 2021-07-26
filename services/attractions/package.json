@@ -1,0 +1,19 @@
+{
+  "name": "aws-nodejs-ts",
+  "version": "1.0.0",
+  "description": "Template for AWS Serverless Projects.",
+  "scripts": {
+    "deploy": "sls deploy",
+    "start": "serverless offline start -s dev",
+    "test": "jest test",
+    "test:verbose": "jest --verbose",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.740.0"
+  },
+  "devDependencies": {
+    "@shelf/jest-dynamodb": "^1.7.0",
+    "serverless-dynamodb-local": "^0.2.39"
+  }
+}

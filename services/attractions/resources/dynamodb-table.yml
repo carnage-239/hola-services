@@ -1,0 +1,21 @@
+# Sample file for demonstrating the use of "/resources"
+Resources:
+  MyTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:custom.tableName.table}
+      AttributeDefinitions:
+        - AttributeName: ID
+          AttributeType: S
+      ProvisionedThroughput:
+            ReadCapacityUnits: 5
+            WriteCapacityUnits: 5
+
+Outputs:
+  MyTableArn:
+    Value:
+      Fn::GetAtt:
+        - MyTable
+        - Arn
+    Export:
+      Name: ${self:custom.stage}-ExtMyTableArn
