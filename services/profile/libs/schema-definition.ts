@@ -11,7 +11,8 @@ export const createUser = Joi.object({
   email: Joi.string().email().required(),
   mobileNumber: Joi.string().regex(mobileRegEx).required(),
   countryCode: Joi.string().required(),
-  password: Joi.string().regex(passwordRegEx).required()
+  password: Joi.string().regex(passwordRegEx).required(),
+  user_type: Joi.string().required().valid('admin', 'tourist', 'guide')
 });
 
 export const login = Joi.object({

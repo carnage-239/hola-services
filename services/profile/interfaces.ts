@@ -4,6 +4,7 @@ export interface ICreateUserProfileBody {
   mobileNumber: string;
   countryCode: string;
   password: string;
+  user_type: 'guide' | 'tourist' | 'admin';
 }
 
 export interface IAvatar {
@@ -29,6 +30,7 @@ export interface IUserItem {
   ID: string;
   name: string;
   email: string;
+  user_type: 'guide' | 'tourist' | 'admin';
   mobileNumber?: string;
   countryCode?: string;
   password?: string;
