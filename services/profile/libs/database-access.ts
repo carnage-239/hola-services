@@ -32,7 +32,7 @@ export const createNewUserAndStoreToDb = async (
     name,
     user_type,
     countryCode,
-    mobileNumber: `${countryCode}${mobileNumber}`,
+    mobileNumber: `${mobileNumber}`,
     emailVerified: false,
     mobileNumberVerified: false,
     isActive: true,

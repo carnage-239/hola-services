@@ -4,6 +4,7 @@ import { APIGatewayProxyHandler } from 'aws-lambda';
 
 import { IResponse } from '../../common/interfaces/IResponse';
 import createUserHandler from './functions/create-user';
+import fetchUserInfoFromTokenHandler from './functions/fetch-user-info-token';
 import loginHandler from './functions/login';
 import refreshTokensHandler from './functions/refresh-tokens';
 
@@ -21,13 +22,6 @@ export const createUser: APIGatewayProxyHandler = async (
 
 /**
  * POST - /users/login
- * This end point is not available in the API.
- * This lambda gets invoked by the `command` service during service
- * orchestration to auhorize a user when a user is trying to login
- * to the web app. That is why the `event` object is passed to the
- * handler function instead of `event.body` object.
- *
- * ==== NOT BEING ORCHESTRATED ANYMORE =====
  */
 export const login = async (event): Promise<IResponse> => {
   const body = JSON.parse(event.body);
@@ -42,5 +36,15 @@ export const login = async (event): Promise<IResponse> => {
 export const refreshTokens = async (event): Promise<IResponse> => {
   const body = JSON.parse(event.body);
   const handlerResponse = await refreshTokensHandler(body);
+  return handlerResponse;
+};
+
+/**
+ * POST - /user/token-info
+ * User can give tokens, expired or so and fetch user information
+ */
+export const fetchUserInfoFromToken = async (event): Promise<IResponse> => {
+  const body = JSON.parse(event.body);
+  const handlerResponse = await fetchUserInfoFromTokenHandler(body);
   return handlerResponse;
 };

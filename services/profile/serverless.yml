@@ -92,6 +92,13 @@ functions:
           method: post
           cors: true
 
+  fetchUserInfoFromToken:
+    handler: handler.fetchUserInfoFromToken
+    events:
+      - http:
+          path: user/token-info
+          method: post
+          cors: true
 
 resources:
   - ${file(resources/dynamodb-table.yml)}
