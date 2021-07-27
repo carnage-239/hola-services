@@ -1,12 +1,14 @@
-# Sample file for demonstrating the use of "/resources"
 Resources:
-  MyTable:
+  TableAttractions:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: ${self:custom.tableName.table}
+      TableName: ${self:custom.tableName.attractions}
       AttributeDefinitions:
         - AttributeName: ID
           AttributeType: S
+      KeySchema:
+      - AttributeName: ID
+        KeyType: HASH
       ProvisionedThroughput:
             ReadCapacityUnits: 5
             WriteCapacityUnits: 5
