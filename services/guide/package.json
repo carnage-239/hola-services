@@ -1,5 +1,5 @@
 {
-  "name": "aws-nodejs-ts",
+  "name": "@hola/guide",
   "version": "1.0.0",
   "description": "Template for AWS Serverless Projects.",
   "scripts": {

@@ -7,7 +7,6 @@ plugins:
   - serverless-dotenv-plugin
   - serverless-offline
   - serverless-dynamodb-local
-  - serverless-domain-manager
 
 custom:
   stage: ${opt:stage, self:provider.stage}
@@ -57,7 +56,7 @@ provider:
         - dynamodb:DeleteItem
       Resource:
         - 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName.table}'
-        - 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName.accounts}/index/email-index'
+       
   environment:
     TABLE_NAME_ADMIN: ${self:custom.tableName.admin}
     TABLE_NAME_ATTRACTIONS: ${self:custom.tableName.attractions}

@@ -55,7 +55,7 @@ export const getNearbyLocations = async (
     }
 
     const responseBody = locations.filter((location) =>
-      locationInRadius(location, coordinates, radius)
+      locationInRadius(location as ICreateAttractionRaw, coordinates, radius)
     );
     console.log(responseBody);
     return responseBody as ICreateAttractionRaw[];

@@ -80,7 +80,7 @@ functions:
     handler: handler.guideCreate
     events:
       - http:
-          path: /guide/{ID}
+          path: /guide
           method: post
           cors: true
   
@@ -88,7 +88,7 @@ functions:
     handler: handler.fetchGuide
     events:
       - http:
-          path: /guide/{ID}
+          path: /guide
           method: get
           cors: true
 
@@ -96,7 +96,7 @@ functions:
     handler: handler.guideVerification
     events:
       - http:
-          path: /guide/verification/{ID}
+          path: /guide/verification
           method: post
           cors: true
 
@@ -104,7 +104,7 @@ functions:
     handler: handler.licensePresignUpload
     events:
       - http:
-          path: /license/presign/{ID}
+          path: /license/presign
           method: post
           cors: true
 
@@ -112,7 +112,7 @@ functions:
     handler: handler.panPresignUpload
     events:
       - http:
-          path: /pan/presign/{ID}
+          path: /pan/presign
           method: post
           cors: true
 
@@ -120,7 +120,7 @@ functions:
     handler: handler.aadharFrontPresignUpload
     events:
       - http:
-          path: /aadhar-front/presign/{ID}
+          path: /aadhar-front/presign
           method: post
           cors: true
 
@@ -128,7 +128,7 @@ functions:
     handler: handler.aadharBackPresignUpload
     events:
       - http:
-          path: /aadhar-back/presign/{ID}
+          path: /aadhar-back/presign
           method: post
           cors: true
 

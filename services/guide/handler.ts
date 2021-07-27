@@ -3,6 +3,8 @@ import 'source-map-support/register';
 import { APIGatewayProxyHandler } from 'aws-lambda';
 
 import { IResponse } from '../../common/interfaces/IResponse';
+import AuthService from '../../common/libs/auth';
+import { tokenExpired, tokenInvalid } from '../../common/utils/http-response';
 import guideCreateHandler from './functions/create-guide';
 import fetchGuideHandler from './functions/fetch-guide';
 import guideVerificationHandler from './functions/guide-verification';
@@ -11,8 +13,15 @@ import photosPresignUploadHandler from './functions/photo-presign-upload';
 export const licensePresignUpload: APIGatewayProxyHandler = async (
   event
 ): Promise<IResponse> => {
+  const accessToken = AuthService.getAccessTokenFromHeaders(event);
+  const ID = await AuthService.getUserIdFromToken(accessToken);
+
+  if (ID === null) {
+    return tokenInvalid();
+  } else if (ID === false) {
+    return tokenExpired();
+  }
   const body = JSON.parse(event.body);
-  const ID = event.pathParameters.ID;
   const handlerResponse = await photosPresignUploadHandler(body, ID, 'license');
   return handlerResponse;
 };
@@ -20,8 +29,15 @@ export const licensePresignUpload: APIGatewayProxyHandler = async (
 export const panPresignUpload: APIGatewayProxyHandler = async (
   event
 ): Promise<IResponse> => {
+  const accessToken = AuthService.getAccessTokenFromHeaders(event);
+  const ID = await AuthService.getUserIdFromToken(accessToken);
+
+  if (ID === null) {
+    return tokenInvalid();
+  } else if (ID === false) {
+    return tokenExpired();
+  }
   const body = JSON.parse(event.body);
-  const ID = event.pathParameters.ID;
   const handlerResponse = await photosPresignUploadHandler(body, ID, 'pan');
   return handlerResponse;
 };
@@ -29,8 +45,15 @@ export const panPresignUpload: APIGatewayProxyHandler = async (
 export const aadharFrontPresignUpload: APIGatewayProxyHandler = async (
   event
 ): Promise<IResponse> => {
+  const accessToken = AuthService.getAccessTokenFromHeaders(event);
+  const ID = await AuthService.getUserIdFromToken(accessToken);
+
+  if (ID === null) {
+    return tokenInvalid();
+  } else if (ID === false) {
+    return tokenExpired();
+  }
   const body = JSON.parse(event.body);
-  const ID = event.pathParameters.ID;
   const handlerResponse = await photosPresignUploadHandler(
     body,
     ID,
@@ -42,8 +65,15 @@ export const aadharFrontPresignUpload: APIGatewayProxyHandler = async (
 export const aadharBackPresignUpload: APIGatewayProxyHandler = async (
   event
 ): Promise<IResponse> => {
+  const accessToken = AuthService.getAccessTokenFromHeaders(event);
+  const ID = await AuthService.getUserIdFromToken(accessToken);
+
+  if (ID === null) {
+    return tokenInvalid();
+  } else if (ID === false) {
+    return tokenExpired();
+  }
   const body = JSON.parse(event.body);
-  const ID = event.pathParameters.ID;
   const handlerResponse = await photosPresignUploadHandler(
     body,
     ID,
@@ -55,8 +85,15 @@ export const aadharBackPresignUpload: APIGatewayProxyHandler = async (
 export const guideCreate: APIGatewayProxyHandler = async (
   event
 ): Promise<IResponse> => {
+  const accessToken = AuthService.getAccessTokenFromHeaders(event);
+  const ID = await AuthService.getUserIdFromToken(accessToken);
+
+  if (ID === null) {
+    return tokenInvalid();
+  } else if (ID === false) {
+    return tokenExpired();
+  }
   const body = JSON.parse(event.body);
-  const ID = event.pathParameters.ID;
   const handlerResponse = await guideCreateHandler(body, ID);
   return handlerResponse;
 };
@@ -64,8 +101,15 @@ export const guideCreate: APIGatewayProxyHandler = async (
 export const guideVerification: APIGatewayProxyHandler = async (
   event
 ): Promise<IResponse> => {
+  const accessToken = AuthService.getAccessTokenFromHeaders(event);
+  const ID = await AuthService.getUserIdFromToken(accessToken);
+
+  if (ID === null) {
+    return tokenInvalid();
+  } else if (ID === false) {
+    return tokenExpired();
+  }
   const body = JSON.parse(event.body);
-  const ID = event.pathParameters.ID;
   const handlerResponse = await guideVerificationHandler(body, ID);
   return handlerResponse;
 };
@@ -73,7 +117,14 @@ export const guideVerification: APIGatewayProxyHandler = async (
 export const fetchGuide: APIGatewayProxyHandler = async (
   event
 ): Promise<IResponse> => {
-  const ID = event.pathParameters.ID;
+  const accessToken = AuthService.getAccessTokenFromHeaders(event);
+  const ID = await AuthService.getUserIdFromToken(accessToken);
+
+  if (ID === null) {
+    return tokenInvalid();
+  } else if (ID === false) {
+    return tokenExpired();
+  }
   const handlerResponse = await fetchGuideHandler(ID);
   return handlerResponse;
 };
