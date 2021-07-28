@@ -20,10 +20,9 @@ export interface IFetchUserInfoPayload {
 const authorizeUser = async (
   body: IFetchUserInfoPayload
 ): Promise<IResponse> => {
-  const email = await AuthService.getUserEmailFromExpiredToken(
-    body.access_token
-  );
-  const mobileNumber = await AuthService.getUserMobileNumberFromExpiredToken(
+  console.log(body);
+  const email = await AuthService.getUserEmailFromToken(body.access_token);
+  const mobileNumber = await AuthService.getMobileNumberFromToken(
     body.access_token
   );
 

@@ -45,6 +45,7 @@ export const refreshTokens = async (event): Promise<IResponse> => {
  */
 export const fetchUserInfoFromToken = async (event): Promise<IResponse> => {
   const body = JSON.parse(event.body);
+  console.log(event.body);
   const handlerResponse = await fetchUserInfoFromTokenHandler(body);
   return handlerResponse;
 };

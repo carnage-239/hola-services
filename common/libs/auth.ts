@@ -411,6 +411,20 @@ const getUserEmailFromToken = async (token: string): Promise<string> => {
 
 /**
  * @param token JWT access token.
+ * @returns User's mobileNumber that was in the payload of the given `token`.
+ */
+const getMobileNumberFromToken = async (token: string): Promise<string> => {
+  const decodedJWT = await parseAccessToken(token);
+
+  if (decodedJWT === null || decodedJWT === false) {
+    return null;
+  }
+
+  return decodedJWT.user.mobile;
+};
+
+/**
+ * @param token JWT access token.
  * @returns Admin's roles that was in the payload of the given `token`.
  */
 const getAdminRolesFromToken = async (
@@ -485,5 +499,6 @@ export default {
   getAdminRolesFromToken,
   getAdminUsernameFromToken,
   getAccessTokenFromHeaders,
-  generatePolicy
+  generatePolicy,
+  getMobileNumberFromToken
 };
