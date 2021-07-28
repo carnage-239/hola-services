@@ -97,7 +97,7 @@ functions:
     events:
       - http:
           path: user/token-info
-          method: post
+          method: get
           cors: true
 
 resources:

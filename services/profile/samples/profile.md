@@ -37,7 +37,7 @@
 }
 ```
 
-4. POST: http://localhost:5000/dev/user/token-info
+4. GET: http://localhost:5000/dev/user/token-info
 
 ```json
 {
@@ -49,5 +49,5 @@
 
 POST - https://8vdrjb6gkc.execute-api.ap-south-1.amazonaws.com/dev/user
 POST - https://8vdrjb6gkc.execute-api.ap-south-1.amazonaws.com/dev/users/login
-POST - https://8vdrjb6gkc.execute-api.ap-south-1.amazonaws.com/dev/refresh-tokens
-POST - https://8vdrjb6gkc.execute-api.ap-south-1.amazonaws.com/dev/users/token-info
+POST - https://8vdrjb6gkc.execute-api.ap-south-1.amazonaws.com/dev/user/refresh-tokens
+GET - https://8vdrjb6gkc.execute-api.ap-south-1.amazonaws.com/dev/user/token-info

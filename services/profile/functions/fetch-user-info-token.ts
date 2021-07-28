@@ -1,9 +1,8 @@
 import { IResponse } from '../../../common/interfaces/IResponse';
-import AuthService from '../../../common/libs/auth';
 import { error, response } from '../../../common/utils/http-response';
 import {
-  fetchUserByEmail,
-  fetchUserByMobileNumber
+  fetchUserByMobileNumber,
+  fetchUserData
 } from '../libs/database-access';
 
 export interface IFetchUserInfoPayload {
@@ -18,19 +17,21 @@ export interface IFetchUserInfoPayload {
  * @returns 500 http response if an unkown server error occurrs.
  */
 const authorizeUser = async (
-  body: IFetchUserInfoPayload
+  ID: string,
+  mobileNumber: string
 ): Promise<IResponse> => {
-  console.log(body);
-  const email = await AuthService.getUserEmailFromToken(body.access_token);
-  const mobileNumber = await AuthService.getMobileNumberFromToken(
-    body.access_token
-  );
+  // console.log(body);
+  // const email = await AuthService.getUserEmailFromToken(body.access_token);
+  // const mobileNumber = await AuthService.getMobileNumberFromToken(
+  //   body.access_token
+  // );
 
-  // console.log({ email, mobileNumber });
+  // console.log(email);
+  // // console.log({ email, mobileNumber });
 
   let user;
   try {
-    user = await fetchUserByEmail(email);
+    user = await fetchUserData(ID);
   } catch (err) {
     return error(500, 30507, 'Database error while trying to fetch user data.');
   }
@@ -48,7 +49,7 @@ const authorizeUser = async (
         'Database error while trying to fetch user data.'
       );
     }
-    return error(400, 30428, 'Authentication failed.');
+    return error(400, 30428, 'No such user exists.');
   }
 
   return response(200, user);

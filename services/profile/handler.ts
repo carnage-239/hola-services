@@ -1,8 +1,8 @@
-import 'source-map-support/register';
-
 import { APIGatewayProxyHandler } from 'aws-lambda';
 
 import { IResponse } from '../../common/interfaces/IResponse';
+import AuthService from '../../common/libs/auth';
+import { tokenExpired, tokenInvalid } from '../../common/utils/http-response';
 import createUserHandler from './functions/create-user';
 import fetchUserInfoFromTokenHandler from './functions/fetch-user-info-token';
 import loginHandler from './functions/login';
@@ -44,8 +44,16 @@ export const refreshTokens = async (event): Promise<IResponse> => {
  * User can give tokens, expired or so and fetch user information
  */
 export const fetchUserInfoFromToken = async (event): Promise<IResponse> => {
-  const body = JSON.parse(event.body);
-  console.log(event.body);
-  const handlerResponse = await fetchUserInfoFromTokenHandler(body);
+  const accessToken = AuthService.getAccessTokenFromHeaders(event);
+  const ID = await AuthService.getUserIdFromToken(accessToken);
+
+  if (ID === null) {
+    return tokenInvalid();
+  } else if (ID === false) {
+    return tokenExpired();
+  }
+  const mobileNumber = await AuthService.getMobileNumberFromToken(accessToken);
+
+  const handlerResponse = await fetchUserInfoFromTokenHandler(ID, mobileNumber);
   return handlerResponse;
 };
