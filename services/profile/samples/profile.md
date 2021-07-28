@@ -37,11 +37,11 @@
 }
 ```
 
-4. POST: http://localhost:5000/dev/user/token-info
+4. GET: http://localhost:5000/dev/user/token-info
 
 ```json
 {
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzVG9rZW4iLCJ1c2VyIjp7ImlkIjoidXNlci1hMTUzY2YxYS0wMGRhLTRhMTUtYTU5NS01MmU2MmUxMGU3M2IiLCJlbWFpbCI6InByYW5qYWxAZW1haWwuY29tIiwibW9iaWxlTnVtYmVyIjoiOTk5OTk5OTk5OSIsImlzQWN0aXZlIjp0cnVlLCJqd3RWZXJzaW9uIjoxLCJ1c2VyX3R5cGUiOiJndWlkZSJ9LCJpYXQiOjE2MjczMzQ5OTEsImV4cCI6MTYyNzMzNDk5MSwiaXNzIjoiSG9sYSJ9.6ZD_JYNB90PY0F5uADnXfDWao_SMpFxceLLDPjOkOQM"
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzVG9rZW4iLCJ1c2VyIjp7ImlkIjoidXNlci1iYzBjYjE2Yy00YmViLTQ3ZWMtYjgwMS01ZDg5OWU5MTYxNjYiLCJlbWFpbCI6InByYW5qYWxAZW1haWwuY29tIiwibW9iaWxlTnVtYmVyIjoiOTk5OTk5OTk5OSIsImlzQWN0aXZlIjp0cnVlLCJqd3RWZXJzaW9uIjoxfSwiaWF0IjoxNjI3NDY4Mzk5LCJleHAiOjE2MzAwNjAzOTksImlzcyI6IkhvbGEifQ.3ZH11J9Bz5X2y1RdW32G9wiRsgP5xxFhD5QCERjW6Xk"
 }
 ```
 
@@ -49,3 +49,5 @@
 
 POST - https://8vdrjb6gkc.execute-api.ap-south-1.amazonaws.com/dev/user
 POST - https://8vdrjb6gkc.execute-api.ap-south-1.amazonaws.com/dev/users/login
+POST - https://8vdrjb6gkc.execute-api.ap-south-1.amazonaws.com/dev/user/refresh-tokens
+GET - https://8vdrjb6gkc.execute-api.ap-south-1.amazonaws.com/dev/user/token-info

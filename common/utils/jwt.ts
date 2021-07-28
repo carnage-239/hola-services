@@ -10,7 +10,7 @@ import {
 } from '../config';
 
 const userAccessTokenOpts = {
-  expiresIn: '3h',
+  expiresIn: '30d',
   issuer: 'Hola'
 };
 
