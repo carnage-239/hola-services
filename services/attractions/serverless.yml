@@ -66,6 +66,13 @@ functions:
       - http:
           path: /attraction
           method: post
- 
+
+  getNearbyLocations:
+    handler: handler.getNearbyLocations
+    events:
+      - http:
+          path: /nearby-attractions
+          method: post
+          
 resources:
   - ${file(resources/dynamodb-table.yml)}

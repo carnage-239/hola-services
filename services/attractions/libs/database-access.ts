@@ -53,11 +53,15 @@ export const getNearbyLocations = async (
     if (locations.length === 0) {
       return null;
     }
-
-    const responseBody = locations.filter((location) =>
-      locationInRadius(location as ICreateAttractionRaw, coordinates, radius)
-    );
-    console.log(responseBody);
+    console.log('locations: ', locations);
+    const responseBody = locations.filter((location: ICreateAttractionRaw) => {
+      return locationInRadius(
+        location as ICreateAttractionRaw,
+        coordinates,
+        radius
+      );
+    });
+    console.log('responseBody: ', responseBody);
     return responseBody as ICreateAttractionRaw[];
   } catch (err) {
     console.log(err.message);
@@ -65,23 +69,30 @@ export const getNearbyLocations = async (
   }
 };
 
+/**
+ * Haversine formula: https://www.movable-type.co.uk/scripts/latlong.html
+ * */
 const locationInRadius = (
   location: ICreateAttractionRaw,
   coordinates: ILocation,
   radius: number
 ): boolean => {
-  const candidateLatitude = location.location.latitude / 57.29577951;
-  const candidateLongitude = location.location.longitude / 57.29577951;
+  const R = 6371e3 / 1000; // km
+  const φ1 = (location.location.latitude * Math.PI) / 180; // φ, λ in radians
+  const φ2 = (coordinates.latitude * Math.PI) / 180;
 
-  const distance =
-    3963.0 *
-    1.609344 *
-    Math.acos[
-      Math.sin(coordinates.latitude) * Math.sin(candidateLatitude) +
-        Math.cos(coordinates.latitude) *
-          Math.cos(candidateLatitude) *
-          Math.cos(candidateLongitude - coordinates.longitude)
-    ];
+  const Δφ =
+    ((coordinates.latitude - location.location.latitude) * Math.PI) / 180;
+  const Δλ =
+    ((coordinates.longitude - location.location.longitude) * Math.PI) / 180;
+
+  const a =
+    Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+    Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  const distance = R * c;
+  console.log('distance: ', distance);
 
   return distance <= radius;
 };
