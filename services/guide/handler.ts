@@ -7,6 +7,7 @@ import AuthService from '../../common/libs/auth';
 import { tokenExpired, tokenInvalid } from '../../common/utils/http-response';
 import guideCreateHandler from './functions/create-guide';
 import fetchGuideHandler from './functions/fetch-guide';
+import addGuideProfileDataHandler from './functions/guide-profile';
 import guideVerificationHandler from './functions/guide-verification';
 import photosPresignUploadHandler from './functions/photo-presign-upload';
 
@@ -111,6 +112,22 @@ export const guideVerification: APIGatewayProxyHandler = async (
   }
   const body = JSON.parse(event.body);
   const handlerResponse = await guideVerificationHandler(body, ID);
+  return handlerResponse;
+};
+
+export const addGuideProfileData: APIGatewayProxyHandler = async (
+  event
+): Promise<IResponse> => {
+  const accessToken = AuthService.getAccessTokenFromHeaders(event);
+  const ID = await AuthService.getUserIdFromToken(accessToken);
+
+  if (ID === null) {
+    return tokenInvalid();
+  } else if (ID === false) {
+    return tokenExpired();
+  }
+  const body = JSON.parse(event.body);
+  const handlerResponse = await addGuideProfileDataHandler(body, ID);
   return handlerResponse;
 };
 

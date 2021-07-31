@@ -4,6 +4,7 @@ import dbInstance from '../../../common/libs/database';
 import { TABLE_NAME_GUIDES } from '../config';
 import {
   IGuideBasicDetails,
+  IGuideProfileData,
   IGuideRaw,
   IGuideVerification,
   IGuideVerificationDataInDB
@@ -93,6 +94,31 @@ export const putGuideVerificationDetails = async (
   try {
     await dbInstance.update(params);
     return insertData;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const addGuideProfileData = async (
+  ID: string,
+  body: IGuideProfileData
+): Promise<IGuideProfileData | false> => {
+  const params = {
+    TableName: TABLE_NAME_GUIDES,
+    Key: {
+      ID
+    },
+    UpdateExpression: 'SET #profile = :p',
+    ExpressionAttributeNames: {
+      '#profile': 'profileData'
+    },
+    ExpressionAttributeValues: {
+      ':p': body
+    }
+  };
+
+  try {
+    await dbInstance.update(params);
   } catch (error) {
     return false;
   }
