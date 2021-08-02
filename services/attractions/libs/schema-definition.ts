@@ -10,7 +10,7 @@ export const locationSchema = Joi.object({
 export const attractionSchema = Joi.object({
   location: locationSchema.required(),
   name: Joi.string().required(),
-  guides: Joi.array().items(Joi.string()),
+  guides: Joi.array().items(Joi.string()).required(),
   avatar: Joi.string(), // render on the map
   images: Joi.array().items(Joi.string().required())
 });
@@ -23,4 +23,8 @@ export const querySchema = Joi.object({
     longitude: Joi.number().required()
   }).required(),
   radius: Joi.number().required()
+});
+
+export const addGuideToAttraction = Joi.object({
+  guides: Joi.array().items(Joi.string()).required()
 });

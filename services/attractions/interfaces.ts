@@ -29,3 +29,9 @@ export interface IQuerySchema {
   coordinates: ILocation;
   radius: number;
 }
+
+export interface IAddGuideToAttraction {
+  name: string;
+  coordinates: ILocation;
+  guides: string[];
+}

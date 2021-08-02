@@ -96,3 +96,52 @@ const locationInRadius = (
 
   return distance <= radius;
 };
+
+export const updateAttraction = async (
+  data: ICreateAttractionRaw
+): Promise<ICreateAttractionRaw | false> => {
+  const insertion: ICreateAttractionRaw = {
+    updatedAt: new Date().toISOString(),
+    ...data
+  };
+
+  const params = {
+    TableName: TABLE_NAME_ATTRACTIONS,
+    Item: insertion
+  };
+
+  try {
+    await dbInstance.put(params);
+    return insertion as ICreateAttractionRaw;
+  } catch (err) {
+    console.log(err.message);
+    return false;
+  }
+};
+
+export const fetchAttraction = async (
+  name: string
+): Promise<ICreateAttractionRaw | false> => {
+  const params = {
+    TableName: TABLE_NAME_ATTRACTIONS,
+    IndexName: 'name-index',
+    KeyConditionExpression: 'name = :nameVal',
+    ExpressionAttributeValues: {
+      nameVal: name
+    }
+  };
+
+  try {
+    const result = await dbInstance.query(params);
+    if (result.Count === 0) {
+      return null;
+    } else {
+      const attraction: ICreateAttractionRaw = result
+        .Items[0] as ICreateAttractionRaw;
+      return attraction;
+    }
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
