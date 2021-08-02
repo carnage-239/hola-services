@@ -132,6 +132,14 @@ functions:
           method: post
           cors: true
 
+  addGuideProfileData:
+    handler: handler.addGuideProfieData
+    events:
+      - http:
+          path: /guide/profile-data
+          method: post
+          cors: true
+
 
 resources:
   - ${file(resources/dynamodb-table.yml)}

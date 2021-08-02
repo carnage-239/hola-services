@@ -54,3 +54,9 @@ export interface IGuideRaw {
   basicDetails: IGuideBasicDetails;
   verificationData?: IGuideVerificationDataInDB;
 }
+
+export interface IGuideProfileData {
+  langauagesSpoken: string[];
+  areaOfOperation: string[];
+  attractions: string[];
+}

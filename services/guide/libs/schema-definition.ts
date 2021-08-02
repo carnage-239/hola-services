@@ -47,3 +47,9 @@ export const photoPresignedUrl = Joi.object({
     .valid('image/png', 'image/jpg', 'image/jpeg'),
   format: Joi.string().required().valid('jpg', 'png', 'jpeg')
 });
+
+export const guideProfileData = Joi.object({
+  languagesSpoken: Joi.array().items(Joi.string().required()).required(),
+  areaOfOperation: Joi.array().items(Joi.string().required()).required(),
+  attractions: Joi.array().items(Joi.string().required()).required()
+});
