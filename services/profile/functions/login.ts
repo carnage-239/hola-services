@@ -88,7 +88,8 @@ const authorizeUser = async (body: ILoginBody): Promise<IResponse> => {
     mobileNumber: user.mobileNumber,
     emailVerified: user.emailVerified,
     mobileNumberVerified: user.mobileNumberVerified,
-    isActive: user.isActive
+    isActive: user.isActive,
+    user_type: user.user_type
   };
 
   const responseBody = {

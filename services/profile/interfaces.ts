@@ -24,6 +24,7 @@ export interface IUser {
   emailVerified: boolean;
   mobileNumberVerified: boolean;
   avatar: IAvatar;
+  user_type?: string;
 }
 
 export interface IUserItem {
