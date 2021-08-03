@@ -7,8 +7,10 @@ export const locationSchema = Joi.object({
   longitude: Joi.number().required()
 });
 
+// add area of operation
 export const attractionSchema = Joi.object({
   location: locationSchema.required(),
+  areaOfOperation: Joi.string().required(),
   name: Joi.string().required(),
   guides: Joi.array().items(Joi.string()).required(),
   avatar: Joi.string(), // render on the map
@@ -27,4 +29,8 @@ export const querySchema = Joi.object({
 
 export const addGuideToAttraction = Joi.object({
   guides: Joi.array().items(Joi.string()).required()
+});
+
+export const areaOfOperations = Joi.object({
+  aop: Joi.array().items(Joi.string().required()).required()
 });

@@ -8,6 +8,8 @@ Resources:
           AttributeType: S
         - AttributeName: name
           AttributeType: S
+        - AttributeName: areaOfOperation
+          AttributeType: S
       KeySchema:
       - AttributeName: ID
         KeyType: HASH
@@ -18,6 +20,15 @@ Resources:
         - IndexName: name-index
           KeySchema:
             - AttributeName: name
+              KeyType: HASH
+          Projection:
+            ProjectionType: 'ALL'
+          ProvisionedThroughput:
+            ReadCapacityUnits: 5
+            WriteCapacityUnits: 5
+        - IndexName: area-index
+          KeySchema:
+            - AttributeName: areaOfOperation
               KeyType: HASH
           Projection:
             ProjectionType: 'ALL'

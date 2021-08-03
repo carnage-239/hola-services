@@ -7,21 +7,17 @@ export interface ILocation {
 
 export interface ICreateAttraction {
   location: ILocation;
+  areaOfOperation: string;
   name: string;
   guides: string[];
   avatar: string;
   images: string[];
 }
 
-export interface ICreateAttractionRaw {
+export interface ICreateAttractionRaw extends ICreateAttraction {
   ID: string;
   createdAt: string;
   updatedAt: string;
-  location: ILocation;
-  name: string;
-  guides: string[];
-  avatar: string;
-  images: string[];
 }
 //=====================================
 
@@ -34,4 +30,8 @@ export interface IAddGuideToAttraction {
   name: string;
   coordinates: ILocation;
   guides: string[];
+}
+
+export interface IAreaOfOperations {
+  aop: string[];
 }

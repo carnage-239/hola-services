@@ -1,7 +1,6 @@
-import { ICreateAttraction } from 'interfaces';
-
 import { IResponse } from '../../../common/interfaces/IResponse';
 import { error, response } from '../../../common/utils/http-response';
+import { ICreateAttraction } from '../interfaces';
 import { registerTouristLocation as createLocationInDB } from '../libs/database-access';
 
 const registerTouristLocation = async (

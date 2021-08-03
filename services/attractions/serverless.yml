@@ -73,6 +73,13 @@ functions:
       - http:
           path: /nearby-attractions
           method: post
+  
+  fetchAttractionsUsingAOP:
+    handler: handler.fetchAttractionsUsingAOP
+    events:
+      - http:
+          path: /attraction/aop
+          method: post
           
 resources:
   - ${file(resources/dynamodb-table.yml)}

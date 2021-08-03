@@ -145,3 +145,29 @@ export const fetchAttraction = async (
     return false;
   }
 };
+
+export const fetchAttractionsUsingAOP = async (
+  aops: string[]
+): Promise<ICreateAttractionRaw[] | null | false> => {
+  const params = {
+    TableName: TABLE_NAME_ATTRACTIONS,
+    IndexName: 'area-index',
+    KeyConditionExpression: 'areaOfOperation IN (:areaVal, :area1)',
+    ExpressionAttributeValues: {
+      ':areaVal': aops[0],
+      ':area1': aops[1]
+    }
+  };
+
+  try {
+    const result = await dbInstance.query(params);
+    if (result.Count === 0) {
+      return null;
+    } else {
+      return result.Items as ICreateAttractionRaw[];
+    }
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
