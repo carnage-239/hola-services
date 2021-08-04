@@ -11,18 +11,18 @@ plugins:
 
 custom:
   stage: ${opt:stage, self:provider.stage}
-  domains:
-    prod: api.indywise.com
-    staging: staging-api.indywise.com
-    dev: dev-api.indywise.com
-  customDomain:
-    domainName: ${self:custom.domains.${self:custom.stage}}
-    certificateName: '*.indywise.com'
-    stage: ${self:custom.stage}
-    basePath: ${self:service}
-    createRoute53Record: true
+  # domains:
+  #   prod: api.indywise.com
+  #   staging: staging-api.indywise.com
+  #   dev: dev-api.indywise.com
+  # customDomain:
+  #   domainName: ${self:custom.domains.${self:custom.stage}}
+  #   certificateName: '*.indywise.com'
+  #   stage: ${self:custom.stage}
+  #   basePath: ${self:service}
+  #   createRoute53Record: true
   tableName:
-    attractions: ${self:custom.stage}-attractions-attractions
+    attractions: ${self:custom.stage}-attraction-attractions
   dynamodb:
     stages:
       - dev
@@ -80,6 +80,19 @@ functions:
       - http:
           path: /attraction/aop
           method: post
-          
+
+  fetchAttractionByID:
+    handler: handler.fetchAttractionByID
+    events:
+      - http:
+          path: /attraction/{ID}
+          method: get
+
+  addGuideToAttraction:
+    handler: handler.addGuideToAttraction
+    events:
+      - http:
+          path: /attraction/guide
+          method: put
 resources:
   - ${file(resources/dynamodb-table.yml)}

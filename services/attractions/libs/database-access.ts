@@ -196,3 +196,26 @@ export const fetchAttractionsUsingAOP = async (
     return false;
   }
 };
+
+export const fetchAttractionByID = async (
+  ID: string
+): Promise<ICreateAttractionRaw | null | false> => {
+  const params = {
+    TableName: TABLE_NAME_ATTRACTIONS,
+    KeyConditionExpression: 'ID = :id',
+    ExpressionAttributeValues: {
+      ':id': ID
+    }
+  };
+
+  try {
+    const result = await dbInstance.query(params);
+    if (result.Count === 0) {
+      return null;
+    }
+    return result.Items[0] as ICreateAttractionRaw;
+  } catch (error) {
+    console.log(error.message);
+    return false;
+  }
+};

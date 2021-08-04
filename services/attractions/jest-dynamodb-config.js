@@ -6,16 +6,16 @@ module.exports = {
       KeySchema: [
         {
           AttributeName: 'ID',
-          KeyType: 'HASH',
-        },
+          KeyType: 'HASH'
+        }
       ],
       AttributeDefinitions: [
         {
           AttributeName: 'ID',
-          AttributeType: 'S',
-        },
+          AttributeType: 'S'
+        }
       ],
-      BillingMode: 'PAY_PER_REQUEST',
-    },
-  ],
+      BillingMode: 'PAY_PER_REQUEST'
+    }
+  ]
 };

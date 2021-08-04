@@ -1,13 +1,8 @@
 import { IResponse } from '../../../common/interfaces/IResponse';
 import { error, response } from '../../../common/utils/http-response';
+import { IAddGuideToAttraction, ICreateAttractionRaw } from '../interfaces';
 import {
-  IAddGuideToAttraction,
-  ICreateAttraction,
-  ICreateAttractionRaw,
-  ILocation
-} from '../interfaces';
-import {
-  fetchAttraction as fetchAttractionFromDb,
+  fetchAttractionByID as fetchAttractionFromDb,
   updateAttraction as updateAttractionInDB
 } from '../libs/database-access';
 import { addGuideToAttractionSchemaValidator as validate } from '../libs/schema-validator';
@@ -21,26 +16,29 @@ const addGuideToLocation = async (
     return error(400, '_', 'dfdnfdk');
   }
 
-  const attraction: ICreateAttractionRaw = await fetchAttractionFromDb(
-    data.name
-  );
+  let attraction = await fetchAttractionFromDb(data.locationID);
+  if (attraction === false) {
+    return error(500, '_', 'fsdjhjfhasjdf0');
+  }
+  if (attraction === null) {
+    return error(500, '_', 'ksjhdakjfhdkjashfkjsdhafk');
+  }
+  attraction = attraction as ICreateAttractionRaw;
+  console.log(attraction);
   const listOfGuides = attraction.guides;
   const newGuides = data.guides;
+  console.log(newGuides);
   let updatedListOfGuides = listOfGuides.concat(newGuides);
 
   updatedListOfGuides = updatedListOfGuides.filter((item, index) => {
     return updatedListOfGuides.indexOf(item) == index;
   });
+  console.log(updatedListOfGuides);
 
-  const location: ILocation = data.coordinates;
+  attraction.guides = updatedListOfGuides;
+  console.log(attraction);
 
-  const updatedAttraction: ICreateAttractionRaw = {
-    guides: updatedListOfGuides,
-    ...attraction
-  };
-  const updatedGuidesAtAttraction = await updateAttractionInDB(
-    updatedAttraction
-  );
+  const updatedGuidesAtAttraction = await updateAttractionInDB(attraction);
   if (updatedGuidesAtAttraction === false) {
     return error(400, '_', 'dfdnfdk');
   }

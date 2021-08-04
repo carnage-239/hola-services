@@ -28,6 +28,7 @@ export const querySchema = Joi.object({
 });
 
 export const addGuideToAttraction = Joi.object({
+  locationID: Joi.string().required(),
   guides: Joi.array().items(Joi.string()).required()
 });
 

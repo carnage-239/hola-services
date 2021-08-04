@@ -8,8 +8,6 @@ Resources:
           AttributeType: S
         - AttributeName: name
           AttributeType: S
-        - AttributeName: areaOfOperation
-          AttributeType: S
       KeySchema:
       - AttributeName: ID
         KeyType: HASH

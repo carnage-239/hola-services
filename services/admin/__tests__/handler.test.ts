@@ -1,6 +1,7 @@
 // Keep all your Tests in this directory
 
-import { APIGatewayEvent, Context, Callback } from 'aws-lambda';
+import { APIGatewayEvent, Callback, Context } from 'aws-lambda';
+
 import * as handler from '../handler';
 
 test('hello', async () => {

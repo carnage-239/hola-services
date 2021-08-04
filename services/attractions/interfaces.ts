@@ -27,8 +27,7 @@ export interface IQuerySchema {
 }
 
 export interface IAddGuideToAttraction {
-  name: string;
-  coordinates: ILocation;
+  locationID: string;
   guides: string[];
 }
 
