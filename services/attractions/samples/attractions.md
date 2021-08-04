@@ -8,7 +8,8 @@ POST - https://gy75hisw1i.execute-api.ap-south-1.amazonaws.com/dev/attraction
     "latitude": 13,
     "longitude": 13
   },
-  "name": "",
+  "areaOfOperation": "Haryana",
+  "name": "Akhada",
   "guides": [],
   "avatar": "",
   "images": []
@@ -24,6 +25,29 @@ POST - https://gy75hisw1i.execute-api.ap-south-1.amazonaws.com/dev/attraction
     "longitude": 13
   },
   "radius": 10
+}
+```
+
+### POST: http://localhost:8000/dev/attraction/aop
+
+```json
+{
+  "aop": ["Delhi", "Haryana"]
+}
+```
+
+### GET: http://localhost:8000/dev/attraction/{ID}
+
+```json
+no body
+```
+
+### PUT: http://localhost:8000/dev/attraction/guide
+
+```json
+{
+  "locationID": "attraction-5e6bbb9e-8eed-458d-984b-d3e271c5d8c5",
+  "guides": ["ramesh", "suresh"]
 }
 ```
 
