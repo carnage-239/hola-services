@@ -13,6 +13,8 @@ Resources:
       KeySchema:
       - AttributeName: ID
         KeyType: HASH
+      - AttributeName: name
+        KeyType: RANGE
       ProvisionedThroughput:
             ReadCapacityUnits: 5
             WriteCapacityUnits: 5
@@ -20,15 +22,6 @@ Resources:
         - IndexName: name-index
           KeySchema:
             - AttributeName: name
-              KeyType: HASH
-          Projection:
-            ProjectionType: 'ALL'
-          ProvisionedThroughput:
-            ReadCapacityUnits: 5
-            WriteCapacityUnits: 5
-        - IndexName: area-index
-          KeySchema:
-            - AttributeName: areaOfOperation
               KeyType: HASH
           Projection:
             ProjectionType: 'ALL'

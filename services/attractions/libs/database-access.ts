@@ -146,21 +146,46 @@ export const fetchAttraction = async (
   }
 };
 
+export const filterExpressionGenerator = (skills: string[]): string => {
+  // 'contains (areaOfOperation, :category1) OR contains (areaOfOperation, :category2)'
+  let res = '';
+  skills.map((_skill: string, index: number) => {
+    const entry = `contains (areaOfOperation, :category${index + 1}) OR `;
+    res += entry;
+  });
+  // console.log(res.slice(0, -4));
+  return res.slice(0, -4);
+};
+
+export const attributeValuesGenerator = (skills: string[]) => {
+  // {
+  //   ':category1': 'react',
+  //   ':category2': 'redux'
+  // }
+
+  // eslint-disable-next-line prefer-const
+  let res = {};
+  skills.map((skill: string, index: number) => {
+    res[`:category${index + 1}`] = skill;
+  });
+  // console.log(res);
+  return res;
+};
+
 export const fetchAttractionsUsingAOP = async (
   aops: string[]
 ): Promise<ICreateAttractionRaw[] | null | false> => {
+  const filterExp = filterExpressionGenerator(aops);
+  const attributeVal = attributeValuesGenerator(aops);
   const params = {
     TableName: TABLE_NAME_ATTRACTIONS,
-    IndexName: 'area-index',
-    KeyConditionExpression: 'areaOfOperation IN (:areaVal, :area1)',
-    ExpressionAttributeValues: {
-      ':areaVal': aops[0],
-      ':area1': aops[1]
-    }
+    Select: 'ALL_ATTRIBUTES',
+    FilterExpression: filterExp,
+    ExpressionAttributeValues: attributeVal
   };
 
   try {
-    const result = await dbInstance.query(params);
+    const result = await dbInstance.scan(params);
     if (result.Count === 0) {
       return null;
     } else {
