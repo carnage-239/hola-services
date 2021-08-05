@@ -51,3 +51,5 @@ POST - https://8vdrjb6gkc.execute-api.ap-south-1.amazonaws.com/dev/user
 POST - https://8vdrjb6gkc.execute-api.ap-south-1.amazonaws.com/dev/users/login
 POST - https://8vdrjb6gkc.execute-api.ap-south-1.amazonaws.com/dev/user/refresh-tokens
 GET - https://8vdrjb6gkc.execute-api.ap-south-1.amazonaws.com/dev/user/token-info
+POST - https://8vdrjb6gkc.execute-api.ap-south-1.amazonaws.com/dev/user/verify
+POST - https://8vdrjb6gkc.execute-api.ap-south-1.amazonaws.com/dev/user/unverify

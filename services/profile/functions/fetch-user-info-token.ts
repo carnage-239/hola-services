@@ -51,7 +51,7 @@ const authorizeUser = async (
     }
     return error(400, 30428, 'No such user exists.');
   }
-
+  delete user.password;
   return response(200, user);
 };
 

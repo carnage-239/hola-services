@@ -36,7 +36,8 @@ export const createNewUserAndStoreToDb = async (
     emailVerified: false,
     mobileNumberVerified: false,
     isActive: true,
-    jwtVersion: 1
+    jwtVersion: 1,
+    verified: false
   };
 
   const params = {
@@ -53,270 +54,23 @@ export const createNewUserAndStoreToDb = async (
   }
 };
 
-// /**
-//  * @param profile Google OAuth profile response
-//  * @returns User if it is sucessfully created and stored to DB.
-//  * @returns false if DB action fails - 500 error.
-//  */
-// export const createOAuthUser = async (
-//   profile: IOAuthProfile
-// ): Promise<IUserItem | Error> => {
-//   const ID: string = 'user-' + uuidv4();
-//   const first_name: string = profile.name.givenName;
-//   const last_name: string = profile.name.familyName;
-//   const email: string =
-//     (profile.emails && profile?.emails[0]?.value) || profile?.email;
-//   const email_verified: boolean =
-//     profile.emails && profile?.emails[0]?.verified;
-//   const referral_code = generateReferralCode(first_name.split(' ')[0]);
-//   const avatar = {
-//     hash: null,
-//     small: null,
-//     medium: null,
-//     large: null
-//   };
-
-//   let user: IUserItem = {
-//     ID,
-//     avatar,
-//     username: referral_code,
-//     email,
-//     first_name,
-//     last_name,
-//     email_verified,
-//     is_active: true,
-//     wiseup_foundation: true,
-//     failed_login_attempts: 0,
-//     jwt_version: 1,
-//     referral_code
-//   };
-
-//   switch (profile.provider) {
-//     case 'google': {
-//       const googleOAuthID = profile.id;
-//       user = { ...user, googleOAuthID };
-//       break;
-//     }
-
-//     case 'linkedin': {
-//       const linkedinOAuthID = profile.id;
-//       user = { ...user, linkedinOAuthID };
-//       break;
-//     }
-
-//     case 'facebook': {
-//       const facebookOAuthID = profile.id;
-//       user = { ...user, facebookOAuthID };
-//       break;
-//     }
-
-//     default:
-//       return new Error('OAuth Provider missing or invalid');
-//   }
-
-//   const params = {
-//     TableName: TABLE_NAME_USERS,
-//     Item: user
-//   };
-
-//   try {
-//     await dbInstance.put(params);
-//     return user;
-//   } catch (err) {
-//     return new Error('Database error while trying to create the user');
-//   }
-// };
-
-// /**
-//  * @param ID It is the uuid of the user to find the user in the DB.
-//  * @returns false if the DynamoDB action failed to mark email as verified.
-//  */
-// export const markEmailVerified = async (ID: string): Promise<false> => {
-//   const params = {
-//     TableName: TABLE_NAME_USERS,
-//     Key: {
-//       ID: ID
-//     },
-//     UpdateExpression: 'set email_verified = :setTrue',
-//     ConditionExpression: 'ID = :idVal',
-//     ExpressionAttributeValues: {
-//       ':setTrue': true,
-//       ':idVal': ID
-//     },
-//     ReturnValues: 'ALL_NEW'
-//   };
-
-//   try {
-//     await dbInstance.update(params);
-//   } catch (err) {
-//     return false;
-//   }
-// };
-
-// /**
-//  * @param ID It is the uuid of the user to find the user in the DB.
-//  * @param otp The one time password.
-//  * @param mobile_number It is the mobile_number the user provided to be saved.
-//  * @returns false if the given `ID` is invalid or DynamoDB action failed.
-//  */
-// export const storeNumberAndOtpToDb = async (
-//   ID: string,
-//   mobile_number: string,
-//   otp: string,
-//   otp_expires_on: number
-// ): Promise<false> => {
-//   const params = {
-//     TableName: TABLE_NAME_USERS,
-//     Key: {
-//       ID: ID
-//     },
-//     UpdateExpression:
-//       'set mobile_number = :numberVal,  otp = :otpVal, otp_expires_on = :otpExpireVal, mobile_number_verified = :setFalse',
-//     ConditionExpression: 'ID = :idVal',
-//     ExpressionAttributeValues: {
-//       ':idVal': ID,
-//       ':numberVal': mobile_number,
-//       ':otpVal': otp,
-//       ':otpExpireVal': otp_expires_on,
-//       ':setFalse': false
-//     },
-//     ReturnValues: 'ALL_NEW'
-//   };
-
-//   try {
-//     await dbInstance.update(params);
-//   } catch (err) {
-//     return false;
-//   }
-// };
-
-// /**
-//  * @param ID It is the uuid of the user to find the user in the DB.
-//  * @returns false if the DynamoDB client action failed to mark it as verified.
-//  */
-// export const markMobileVerified = async (ID: string): Promise<false> => {
-//   const params = {
-//     TableName: TABLE_NAME_USERS,
-//     Key: {
-//       ID: ID
-//     },
-//     UpdateExpression:
-//       'set mobile_number_verified = :setTrue remove otp, otp_expires_on',
-//     ConditionExpression: 'ID = :idVal',
-//     ExpressionAttributeValues: {
-//       ':setTrue': true,
-//       ':idVal': ID
-//     },
-//     ReturnValues: 'ALL_NEW'
-//   };
-
-//   try {
-//     await dbInstance.update(params);
-//   } catch (err) {
-//     return false;
-//   }
-// };
-
-// /**
-//  * @param ID It is the uuid of the user to find the user in the DB.
-//  * @returns false if the DynamoDB client action failed .
-//  */
-// export const storeUserTypeToDb = async (
-//   ID: string,
-//   user_type: string[]
-// ): Promise<false> => {
-//   const params = {
-//     TableName: TABLE_NAME_USERS,
-//     Key: {
-//       ID: ID
-//     },
-//     UpdateExpression: 'set user_type = :userTypeVal, is_active = :setTrue',
-//     ExpressionAttributeValues: {
-//       ':userTypeVal': user_type,
-//       ':setTrue': true
-//     },
-//     ReturnValues: 'ALL_NEW'
-//   };
-
-//   try {
-//     await dbInstance.update(params);
-//   } catch (err) {
-//     return false;
-//   }
-// };
-
-/**
- * @param mobileNumber Find user account connected to this number.
- * @returns user data from the table if user found.
- * @return null if no user found.
- * @returns false if the DynamoDB action fails.
- */
-export const fetchUserByMobileNumber = async (
-  mobileNumber: string
-): Promise<IUserItem | null | false> => {
+export const verifyAccount = async (
+  ID: string,
+  verify: boolean
+): Promise<false> => {
   const params = {
     TableName: TABLE_NAME_USERS,
-    IndexName: 'mobile-number-index',
-    KeyConditionExpression: 'mobileNumber = :mobileNumberVal',
+    Key: {
+      ID
+    },
+    UpdateExpression: 'SET verified = :v',
     ExpressionAttributeValues: {
-      ':mobileNumberVal': mobileNumber
+      ':v': verify
     }
   };
 
-  // The following conditions are being validated to see if any user with the
-  // given `mobile_number` already exists.
-  // Phone number must be unique
   try {
-    const result = await dbInstance.query(params);
-
-    if (result.Count === 0) {
-      // No account is connected with the `mobileNumber`.
-      return null;
-    } else {
-      // `mobileNumber` is connected with an account.
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      const user: IUserItem = result.Items[0];
-      return user;
-    }
-  } catch (err) {
-    return false;
-  }
-};
-
-/**
- * @param email Find user account connected to this email.
- * @returns user data from the table if user found.
- * @return null if no user found.
- * @returns false if the DynamoDB action fails.
- */
-export const fetchUserByEmail = async (
-  email: string
-): Promise<IUserItem | null | false> => {
-  const params = {
-    TableName: TABLE_NAME_USERS,
-    IndexName: 'email-index',
-    KeyConditionExpression: 'email = :emailVal',
-    ExpressionAttributeValues: {
-      ':emailVal': email
-    }
-  };
-
-  // The following conditions are being validated to see if any user with the
-  // given `mobile_number` already exists.
-  // Phone number must be unique
-  try {
-    const result = await dbInstance.query(params);
-
-    if (result.Count === 0) {
-      // No user account connected with the given email.
-      return null;
-    } else {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      const user: IUserItem = result.Items[0];
-      return user;
-    }
+    await dbInstance.update(params);
   } catch (err) {
     console.log(err.message);
     return false;
@@ -989,3 +743,80 @@ export const loginSuccess = async (ID: string) => {
 //     return false;
 //   }
 // };
+/**
+ * @param mobileNumber Find user account connected to this number.
+ * @returns user data from the table if user found.
+ * @return null if no user found.
+ * @returns false if the DynamoDB action fails.
+ */
+export const fetchUserByMobileNumber = async (
+  mobileNumber: string
+): Promise<IUserItem | null | false> => {
+  const params = {
+    TableName: TABLE_NAME_USERS,
+    IndexName: 'mobile-number-index',
+    KeyConditionExpression: 'mobileNumber = :mobileNumberVal',
+    ExpressionAttributeValues: {
+      ':mobileNumberVal': mobileNumber
+    }
+  };
+
+  // The following conditions are being validated to see if any user with the
+  // given `mobile_number` already exists.
+  // Phone number must be unique
+  try {
+    const result = await dbInstance.query(params);
+
+    if (result.Count === 0) {
+      // No account is connected with the `mobileNumber`.
+      return null;
+    } else {
+      // `mobileNumber` is connected with an account.
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const user: IUserItem = result.Items[0];
+      return user;
+    }
+  } catch (err) {
+    return false;
+  }
+};
+
+/**
+ * @param email Find user account connected to this email.
+ * @returns user data from the table if user found.
+ * @return null if no user found.
+ * @returns false if the DynamoDB action fails.
+ */
+export const fetchUserByEmail = async (
+  email: string
+): Promise<IUserItem | null | false> => {
+  const params = {
+    TableName: TABLE_NAME_USERS,
+    IndexName: 'email-index',
+    KeyConditionExpression: 'email = :emailVal',
+    ExpressionAttributeValues: {
+      ':emailVal': email
+    }
+  };
+
+  // The following conditions are being validated to see if any user with the
+  // given `mobile_number` already exists.
+  // Phone number must be unique
+  try {
+    const result = await dbInstance.query(params);
+
+    if (result.Count === 0) {
+      // No user account connected with the given email.
+      return null;
+    } else {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const user: IUserItem = result.Items[0];
+      return user;
+    }
+  } catch (err) {
+    console.log(err.message);
+    return false;
+  }
+};

@@ -100,6 +100,22 @@ functions:
           method: get
           cors: true
 
+  verifyAccount:
+    handler: handler.verifyAccount
+    events:
+      - http:
+          path: user/verify
+          method: post
+          cors: true
+
+  unverifyAccount:
+    handler: handler.unverifyAccount
+    events:
+      - http:
+          path: user/unverify
+          method: post
+          cors: true
+
 resources:
   - ${file(resources/dynamodb-table.yml)}
   - ${file(resources/gateway.yml)}

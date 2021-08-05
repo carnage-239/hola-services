@@ -77,6 +77,7 @@ const authorizeUser = async (body: ILoginBody): Promise<IResponse> => {
   }
 
   await loginSuccess(user.ID);
+  delete user.password;
   const [accessToken, refreshToken] = await AuthService.generateTokens(user);
 
   const userData: IUser = {

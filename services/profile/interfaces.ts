@@ -44,6 +44,7 @@ export interface IUserItem {
   otp?: string;
   password_reset_token?: string;
   googleOAuthID?: string;
+  verified?: boolean;
 }
 
 export interface ILoginBody {
