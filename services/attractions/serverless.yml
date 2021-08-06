@@ -52,9 +52,7 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
       Resource:
-        # - 'Fn::GetAtt': [MyTable, Arn]
         - 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName.attractions}'
-        # - 'arn:aws:dynamodb:${self:provider.region}:*:table/${self:custom.tableName.accounts}/index/email-index'
 
   environment:
     TABLE_NAME_ATTRACTIONS: ${self:custom.tableName.attractions}

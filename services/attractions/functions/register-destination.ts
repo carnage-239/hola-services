@@ -14,7 +14,7 @@ const registerTouristLocation = async (
 
   const createLocation = await createLocationInDB(data);
   if (createLocation === false) {
-    return error(400, '_', 'dfdnfdk');
+    return error(400, '_', 'database error while creating location');
   }
 
   return response(201, { createLocation });

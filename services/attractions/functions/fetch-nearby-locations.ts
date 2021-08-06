@@ -15,7 +15,7 @@ const registerTouristLocation = async (
 
   const locations = await fetchLocationsFromDB(data);
   if (locations === false) {
-    return error(400, '_', 'dfdnfdk');
+    return error(400, '_', 'database error while fetching locations');
   }
 
   return response(201, { locations });

@@ -53,7 +53,7 @@ export const getNearbyLocations = async (
     if (locations.length === 0) {
       return null;
     }
-    console.log('locations: ', locations);
+
     const responseBody = locations.filter((location: ICreateAttractionRaw) => {
       return locationInRadius(
         location as ICreateAttractionRaw,
@@ -61,7 +61,7 @@ export const getNearbyLocations = async (
         radius
       );
     });
-    console.log('responseBody: ', responseBody);
+
     return responseBody as ICreateAttractionRaw[];
   } catch (err) {
     console.log(err.message);
