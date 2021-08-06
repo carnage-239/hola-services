@@ -20,15 +20,6 @@ const authorizeUser = async (
   ID: string,
   mobileNumber: string
 ): Promise<IResponse> => {
-  // console.log(body);
-  // const email = await AuthService.getUserEmailFromToken(body.access_token);
-  // const mobileNumber = await AuthService.getMobileNumberFromToken(
-  //   body.access_token
-  // );
-
-  // console.log(email);
-  // // console.log({ email, mobileNumber });
-
   let user;
   try {
     user = await fetchUserData(ID);

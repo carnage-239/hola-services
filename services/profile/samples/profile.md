@@ -47,9 +47,9 @@
 
 5. Invocation:
 
-POST - https://8vdrjb6gkc.execute-api.ap-south-1.amazonaws.com/dev/user
-POST - https://8vdrjb6gkc.execute-api.ap-south-1.amazonaws.com/dev/users/login
-POST - https://8vdrjb6gkc.execute-api.ap-south-1.amazonaws.com/dev/user/refresh-tokens
-GET - https://8vdrjb6gkc.execute-api.ap-south-1.amazonaws.com/dev/user/token-info
-POST - https://8vdrjb6gkc.execute-api.ap-south-1.amazonaws.com/dev/user/verify
-POST - https://8vdrjb6gkc.execute-api.ap-south-1.amazonaws.com/dev/user/unverify
+POST - https://l1db2xxol9.execute-api.ap-south-1.amazonaws.com/dev/user
+POST - https://l1db2xxol9.execute-api.ap-south-1.amazonaws.com/dev/users/login
+POST - https://l1db2xxol9.execute-api.ap-south-1.amazonaws.com/dev/user/refresh-tokens
+GET - https://l1db2xxol9.execute-api.ap-south-1.amazonaws.com/dev/user/token-info
+POST - https://l1db2xxol9.execute-api.ap-south-1.amazonaws.com/dev/user/verify
+POST - https://l1db2xxol9.execute-api.ap-south-1.amazonaws.com/dev/user/unverify
