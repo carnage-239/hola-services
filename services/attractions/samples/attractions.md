@@ -53,11 +53,11 @@ no body
 
 ### endpoints:
 
-- POST - https://gy75hisw1i.execute-api.ap-south-1.amazonaws.com/dev/attraction
-- POST - https://gy75hisw1i.execute-api.ap-south-1.amazonaws.com/dev/nearby-attractions
-- POST - https://gy75hisw1i.execute-api.ap-south-1.amazonaws.com/dev/attraction/aop
-- GET - https://gy75hisw1i.execute-api.ap-south-1.amazonaws.com/dev/attraction/{ID}
-- PUT - https://gy75hisw1i.execute-api.ap-south-1.amazonaws.com/dev/attraction/guide
+POST - https://gy75hisw1i.execute-api.ap-south-1.amazonaws.com/dev/attraction
+POST - https://gy75hisw1i.execute-api.ap-south-1.amazonaws.com/dev/nearby-attractions
+POST - https://gy75hisw1i.execute-api.ap-south-1.amazonaws.com/dev/attraction/aop
+GET - https://gy75hisw1i.execute-api.ap-south-1.amazonaws.com/dev/attraction/{ID}
+PUT - https://gy75hisw1i.execute-api.ap-south-1.amazonaws.com/dev/attraction/guide
 
 ### functions:
 
