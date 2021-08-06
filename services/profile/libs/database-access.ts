@@ -47,7 +47,9 @@ export const createNewUserAndStoreToDb = async (
 
   try {
     await dbInstance.put(params);
-    return user;
+    const responseUser = user;
+    delete responseUser['password'];
+    return responseUser;
   } catch (err) {
     console.log(err.message);
     return false;
