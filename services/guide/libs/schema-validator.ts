@@ -45,6 +45,7 @@ export const addGuideProfileDataSchemaValidator = async (
 ): Promise<IResponse | true> => {
   try {
     await schema.guideProfileData.validateAsync(data);
+    return true;
   } catch (error) {
     return error(400, 40426, error.details[0].message);
   }

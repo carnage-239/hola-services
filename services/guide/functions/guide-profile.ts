@@ -2,13 +2,13 @@ import { IResponse } from '../../../common/interfaces/IResponse';
 import { error, response } from '../../../common/utils/http-response';
 import { IGuideProfileData } from '../interfaces';
 import { addGuideProfileData as addGuideProfileDataInDb } from '../libs/database-access';
-import { addGuideProfileDataSchemaValidator as validateRequestBodySchema } from '../libs/schema-validator';
+import { addGuideProfileDataSchemaValidator } from '../libs/schema-validator';
 
 const GuideProfileData = async (
   body: IGuideProfileData,
   ID: string
 ): Promise<IResponse> => {
-  const requestBodyIsValid = await validateRequestBodySchema(body);
+  const requestBodyIsValid = await addGuideProfileDataSchemaValidator(body);
   if (requestBodyIsValid !== true) {
     return requestBodyIsValid;
   }

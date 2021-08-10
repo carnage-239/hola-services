@@ -75,7 +75,6 @@ provider:
     # REGION: ${self:provider.region}
 
 functions:
-
   guideCreate:
     handler: handler.guideCreate
     events:
@@ -133,7 +132,7 @@ functions:
           cors: true
 
   addGuideProfileData:
-    handler: handler.addGuideProfieData
+    handler: handler.addGuideProfileData
     events:
       - http:
           path: /guide/profile-data

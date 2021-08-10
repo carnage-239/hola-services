@@ -53,10 +53,12 @@ export interface IGuideRaw {
   guideID: string;
   basicDetails: IGuideBasicDetails;
   verificationData?: IGuideVerificationDataInDB;
+  profileData?: IGuideProfileData;
 }
 
 export interface IGuideProfileData {
-  langauagesSpoken: string[];
-  areaOfOperation: string[];
-  attractions: string[];
+  langauagesSpoken?: string[];
+  areaOfOperation?: string[];
+  attractions?: string[];
+  applicationStatus?: 'pending' | 'failed';
 }

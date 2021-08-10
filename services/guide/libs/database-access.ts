@@ -18,10 +18,13 @@ export const createGuide = async (
   const insertData: IGuideBasicDetails = {
     ...body
   };
+  const insertProfileData: IGuideProfileData = { applicationStatus: 'pending' };
+
   const returnData: IGuideRaw = {
     ID,
     guideID,
-    basicDetails: body
+    basicDetails: body,
+    profileData: { ...insertProfileData }
   };
 
   const params = {
@@ -29,14 +32,16 @@ export const createGuide = async (
     Key: {
       ID
     },
-    UpdateExpression: 'SET #basicdata = :b, #guideID = :g',
+    UpdateExpression: 'SET #basicdata = :b, #guideID = :g, #profileData = :p',
     ExpressionAttributeNames: {
       '#basicdata': 'basicDetails',
-      '#guideID': 'guideID'
+      '#guideID': 'guideID',
+      '#profileData': 'profileData'
     },
     ExpressionAttributeValues: {
       ':b': insertData,
-      ':g': guideID
+      ':g': guideID,
+      ':p': insertProfileData
     }
   };
 

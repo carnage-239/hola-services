@@ -49,7 +49,8 @@ export const photoPresignedUrl = Joi.object({
 });
 
 export const guideProfileData = Joi.object({
-  languagesSpoken: Joi.array().items(Joi.string().required()).required(),
-  areaOfOperation: Joi.array().items(Joi.string().required()).required(),
-  attractions: Joi.array().items(Joi.string().required()).required()
+  languagesSpoken: Joi.array().items(Joi.string().required()),
+  areaOfOperation: Joi.array().items(Joi.string().required()),
+  attractions: Joi.array().items(Joi.string().required()),
+  applicationStatus: Joi.string().valid('failed', 'pending')
 });
