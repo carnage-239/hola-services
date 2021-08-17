@@ -61,4 +61,5 @@ export interface IGuideProfileData {
   areaOfOperation?: string[];
   attractions?: string[];
   applicationStatus?: 'pending' | 'failed';
+  verified?: boolean;
 }

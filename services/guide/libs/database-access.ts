@@ -18,7 +18,10 @@ export const createGuide = async (
   const insertData: IGuideBasicDetails = {
     ...body
   };
-  const insertProfileData: IGuideProfileData = { applicationStatus: 'pending' };
+  const insertProfileData: IGuideProfileData = {
+    applicationStatus: 'pending',
+    verified: false
+  };
 
   const returnData: IGuideRaw = {
     ID,

@@ -52,5 +52,6 @@ export const guideProfileData = Joi.object({
   languagesSpoken: Joi.array().items(Joi.string().required()),
   areaOfOperation: Joi.array().items(Joi.string().required()),
   attractions: Joi.array().items(Joi.string().required()),
-  applicationStatus: Joi.string().valid('failed', 'pending')
+  applicationStatus: Joi.string().valid('failed', 'pending'),
+  verified: Joi.boolean()
 });
