@@ -136,6 +136,7 @@ export const fetchGuide: APIGatewayProxyHandler = async (
 ): Promise<IResponse> => {
   const accessToken = AuthService.getAccessTokenFromHeaders(event);
   const ID = await AuthService.getUserIdFromToken(accessToken);
+  console.log({ accessToken, ID });
 
   if (ID === null) {
     return tokenInvalid();
