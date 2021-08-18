@@ -62,4 +62,5 @@ export interface IGuideProfileData {
   attractions?: string[];
   applicationStatus?: 'pending' | 'failed';
   verified?: boolean;
+  hourlyCharges?: number;
 }

@@ -53,5 +53,6 @@ export const guideProfileData = Joi.object({
   areaOfOperation: Joi.array().items(Joi.string().required()),
   attractions: Joi.array().items(Joi.string().required()),
   applicationStatus: Joi.string().valid('failed', 'pending'),
-  verified: Joi.boolean()
+  verified: Joi.boolean(),
+  hourlyCharges: Joi.number()
 });
